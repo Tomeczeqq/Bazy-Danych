@@ -1,0 +1,66 @@
+\documentclass[a4paper,11pt]{article} 
+\usepackage{fancyhdr}
+\usepackage{polski}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[left=2cm,top=2cm,right=2cm,bottom=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[export]{adjustbox}
+\usepackage{color}  
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=black
+}
+
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1pt} 
+\fancyhead[R]{}
+\lhead{}
+\setlength{\headheight}{8pt}
+
+\cfoot{}
+\rfoot{\thepage} 
+
+
+
+\begin{document}
+
+\begin{titlepage}
+\scshape
+
+\centering
+\includegraphics[scale=0.11]{logo.png} \par \vspace{0.1cm}
+\huge \texttt{Akademia Górniczo Hutnicza \\ im. Stanisława Staszica \\ w Krakowie}
+\vspace{1cm}
+
+
+\rule{\textwidth}{2px}
+{\huge{\textbf{PODSTAWY BAZ DANYCH}}}\par \vspace{0.4cm}
+PROJEKT: \\ \textit{KURSY I SZKOLENIA}
+\rule{\textwidth}{2px}
+
+\vspace{1cm}
+
+\begin{tabularx}{\textwidth}{X r}
+AUTORZY:  & PROWADZĄCY:\\
+\large{JANECZKO TOMASZ}   & \large{DR INŻ. ROBERT MARCJAN} \\
+\large{SMYDA TOMASZ}   &  \\
+\large{ZIELIŃSKI PRZEMYSŁAW}   &  \\
+\end{tabularx}
+\vfill
+\today
+
+\end{titlepage}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\input{part1.txt}
+\end{document}
