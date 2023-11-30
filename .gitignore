@@ -1,1 +1,6 @@
-/report/*.gz
+/report
+!/report/*.tex
+!/report/*.png
+!/report/*.svg
+!/report/*.txt
+!/report/*.pdf

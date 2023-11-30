@@ -9,21 +9,31 @@ stacjonarnie, ale ze względu na pandemię COVID-19 usługi zostały w różnym 
 \item Dodawanie pracowników
 \item Obsługa platformy chmurowej (w tym usuwanie nagrań webinariów i kursów)
 \end{itemize}
-\subsubsection{Pracownik}
+
+\subsection{Dyrektor}
+\begin{itemize}
+\item Wydanie zgody na płatność odroczoną w czasie
+\end{itemize}
+
+\subsubsection{Menadżer}
 \begin{itemize}
 \item Generowanie i przetwarzanie informacji o płatnościach
 \item Wprowadzenie cen dla płatnych webinariów, kursów oraz studiów
 \item Tworzenie programu studiów
+\item Wprowadzanie informacji o kolejnych dniach webinarium
+\item Wprowadzanie informacji o salach (kursy oraz studia stacjonarne)
 \item Tworzenie oraz zmienianie harmonogramu zajęć studiów
+\item Dostęp do raportów bilokacji – listy osób zapisanych na kolidujące się zajęcia 
 \item Dodawanie nauczycieli
+\item Generowanie raportów finansowych – informacje o płatnościach klientów, zestawienie przychodów dla każdej oferowanej formy szkolenia
 \end{itemize}
+
 \subsubsection{Nauczyciel}
 \begin{itemize}
 \item Prowadzenie webinariów, kursów oraz studiów
-\item Wprowadzanie informacji o kolejnych dniach webinarium
-\item Wprowadzanie informacji o salach (kursy oraz studia stacjonarne)
 \item Dostęp do listy klientów i ich obecności na poszczególnych modułach zajęć
 \end{itemize}
+
 \subsubsection{Klient}
 \begin{itemize}
 \item Dostęp do darmowego webinarium 
@@ -35,17 +45,8 @@ stacjonarnie, ale ze względu na pandemię COVID-19 usługi zostały w różnym 
 \item Zapisanie się na zajęcia lub kurs w celu odrobienia nieobecności 
 \item Wyszukanie i zapisanie się na pojedyncze spotkanie studyjne
 \end{itemize}
+
 \subsubsection{Niezarejestrowany użytkownik}
 \begin{itemize}
 \item Założenie konta 
-\end{itemize}
-
-\subsection{Funkcje systemowe}
-\begin{itemize}
-\item Zapewnienie, by wszyscy mający dostęp do webinariów i kursów oraz zapisanych na studia mieli stworzone konto
-\item Obsługa platformy chmurowej przechowującej nagrania webinariów i kursów
-\item Obsługa systemu płatności, w tym informacje o nieopłaconych usługach
-\item Generowanie raportów finansowych – informacje o płatnościach klientów, zestawienie przychodów dla każdej oferowanej formy szkolenia
-\item Generowanie raportów frekwencyjnych – lista obecności dla każdego szkolenia 
-\item Tworzenie raportów bilokacji – lista osób zapisanych na kolidujące się zajęcia 
 \end{itemize}

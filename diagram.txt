@@ -1,0 +1,87 @@
+Table employees {
+  EmployeeID integer [primary key]
+  FirstName varchar
+  LastName varchar
+  Email varchar
+  Role varchar
+  BirthDate date
+  HireDate date
+  Address varchar
+  City varchar
+  Region varchar
+  PostalCode varchar
+  Country varchar
+  PhoneNumber varchar
+}
+
+Table users {
+  UserID integer [primary key]
+  FirstName varchar
+  LastName varchar
+  Email varchar
+  Password varchar
+}
+
+Table events {
+  EventID integer [primary key]
+  Title varchar
+  Type varchar
+  BeginDate date
+  EndDate date
+  Capacity integer
+  Price integer
+  Description varchar
+  LecturerID varchar
+  RoomID varchar
+}
+
+Table attendances {
+  AttendanceID integer [primary key]
+  UserID integer
+  EventID integer
+  PaymentStatus boolean
+}
+
+Table rooms {
+  RoomID integer [primary key]
+  Name varchar
+  Capacity integer
+  Avaliablilty boolean
+  Equipment varchar
+}
+
+Table event_employees {
+  EventEmployeeID integer [primary key]
+  EventID integer
+  EmployeeID integer
+}
+
+Table practices {
+  PracticeID integer [primary key]
+  UserID integer
+  Date date
+  Completed boolean 
+}
+
+Table payments {
+  PaymentID integer [primary key]
+  AttendanceID integer
+  Amount float
+  PaymentDate date
+  Completed boolean
+}
+
+Ref: employees.EmployeeID > event_employees.EmployeeID // many-to-one
+
+Ref: users.UserID < attendances.UserID
+
+Ref: users.UserID - practices.UserID
+
+Ref: events.EventID < attendances.EventID
+
+Ref: event_employees.EventID - attendances.EventID
+
+Ref: rooms.RoomID - events.RoomID
+
+Ref: attendances.AttendanceID - payments.AttendanceID
+
