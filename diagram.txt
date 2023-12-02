@@ -14,12 +14,40 @@ Table employees {
   PhoneNumber varchar
 }
 
-Table users {
-  UserID integer [primary key]
+Table students {
+  StudentID integer [primary key]
   FirstName varchar
   LastName varchar
   Email varchar
   Password varchar
+}
+
+Table lecturers {
+  LecturerID integer [primary key]
+  FirstName varchar
+  LastName varchar
+  Email varchar
+  // Role varchar
+  BirthDate date
+  HireDate date
+  Address varchar
+  City varchar
+  Region varchar
+  PostalCode varchar
+  Country varchar
+  PhoneNumber varchar
+
+}
+
+Table modules {
+  ModuleID integer [primary key]
+  EventID integer
+  ModuleNo integer 
+  Description varchar
+  BeginDate date
+  EndDate date
+  RoomID integer
+  Price float //cena uczestnictwa oddzielnie w danym module
 }
 
 Table events {
@@ -29,17 +57,8 @@ Table events {
   BeginDate date
   EndDate date
   Capacity integer
-  Price integer
+  Price float //cena uczestnictwa w całym kursie
   Description varchar
-  LecturerID varchar
-  RoomID varchar
-}
-
-Table attendances {
-  AttendanceID integer [primary key]
-  UserID integer
-  EventID integer
-  PaymentStatus boolean
 }
 
 Table rooms {
@@ -50,38 +69,36 @@ Table rooms {
   Equipment varchar
 }
 
+Table event_lecturers {
+  EventID integer [primary key]
+  LecturerID integer [primary key]
+}
+
 Table event_employees {
-  EventEmployeeID integer [primary key]
-  EventID integer
-  EmployeeID integer
+  EventID integer [primary key]
+  EmployeeID integer [primary key]
 }
 
-Table practices {
-  PracticeID integer [primary key]
-  UserID integer
-  Date date
-  Completed boolean 
+Table module_students {
+  ModuleStudentID integer [primary key]
+  ModuleID integer
+  StudentID integer
+  LeftToPay float
+  isPresent boolean //null oznacza, że moduł się jeszcze nie odbył lub brak informacji, true to obecny, false to nieobecny 
 }
 
-Table payments {
-  PaymentID integer [primary key]
-  AttendanceID integer
-  Amount float
-  PaymentDate date
-  Completed boolean
-}
+Ref: rooms.RoomID - modules.RoomID
 
-Ref: employees.EmployeeID > event_employees.EmployeeID // many-to-one
+Ref: event_lecturers.EventID > events.EventID
+Ref: event_lecturers.LecturerID < lecturers.LecturerID
 
-Ref: users.UserID < attendances.UserID
 
-Ref: users.UserID - practices.UserID
+Ref: event_employees.EventID > events.EventID
+Ref: event_employees.EmployeeID < employees.EmployeeID
 
-Ref: events.EventID < attendances.EventID
+Ref: modules.EventID > events.EventID
 
-Ref: event_employees.EventID - attendances.EventID
+Ref: students.StudentID < module_students.StudentID
+Ref: module_students.ModuleID > modules.ModuleID
 
-Ref: rooms.RoomID - events.RoomID
-
-Ref: attendances.AttendanceID - payments.AttendanceID
 
