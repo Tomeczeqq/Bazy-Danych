@@ -4,13 +4,14 @@ stacjonarnie, ale ze względu na pandemię COVID-19 usługi zostały w różnym 
 
 \section{Funkcje realizowane przez system}
 \subsection{Funkcje użytkowników}
+
 \subsubsection{Administrator}
 \begin{itemize}
 \item Dodawanie pracowników
 \item Obsługa platformy chmurowej (w tym usuwanie nagrań webinariów i kursów)
 \end{itemize}
 
-\subsection{Dyrektor}
+\subsubsection{Dyrektor}
 \begin{itemize}
 \item Wydanie zgody na płatność odroczoną w czasie
 \end{itemize}
