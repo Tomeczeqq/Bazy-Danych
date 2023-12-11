@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-12-11 20:27:04.359
+-- Last modification date: 2023-12-11 21:16:03.554
 
 -- tables
 -- Table: attendance
@@ -68,6 +68,13 @@ CREATE TABLE exams (
     CONSTRAINT exams_pk PRIMARY KEY  (ExamID)
 );
 
+-- Table: languages
+CREATE TABLE languages (
+    LanguageID int  NOT NULL,
+    LanguageName varchar  NOT NULL,
+    CONSTRAINT languages_pk PRIMARY KEY  (LanguageID)
+);
+
 -- Table: lecturers
 CREATE TABLE lecturers (
     LecturerID int  NOT NULL,
@@ -82,6 +89,7 @@ CREATE TABLE lecturers (
     PostalCode varchar  NOT NULL,
     Country varchar  NOT NULL,
     Phone varchar  NOT NULL,
+    LanguageID int  NOT NULL,
     CONSTRAINT lecturers_pk PRIMARY KEY  (LecturerID)
 );
 
@@ -166,6 +174,13 @@ CREATE TABLE students (
     CONSTRAINT students_pk PRIMARY KEY  (StudentID)
 );
 
+-- Table: translator_languages
+CREATE TABLE translator_languages (
+    TranslatorID int  NOT NULL,
+    LanguageID int  NOT NULL,
+    CONSTRAINT translator_languages_pk PRIMARY KEY  (TranslatorID,LanguageID)
+);
+
 -- Table: translators
 CREATE TABLE translators (
     TranslatorID int  NOT NULL,
@@ -210,6 +225,11 @@ ALTER TABLE event_students ADD CONSTRAINT event_students_students
 ALTER TABLE exams ADD CONSTRAINT exams_events
     FOREIGN KEY (EventID)
     REFERENCES events (EventID);
+
+-- Reference: lecturers_languages (table: lecturers)
+ALTER TABLE lecturers ADD CONSTRAINT lecturers_languages
+    FOREIGN KEY (LanguageID)
+    REFERENCES languages (LanguageID);
 
 -- Reference: module_students_modules (table: single_module_students)
 ALTER TABLE single_module_students ADD CONSTRAINT module_students_modules
@@ -270,6 +290,16 @@ ALTER TABLE practices ADD CONSTRAINT practices_events
 ALTER TABLE practices ADD CONSTRAINT practices_rooms
     FOREIGN KEY (RoomID)
     REFERENCES rooms (RoomID);
+
+-- Reference: translator_languages_languages (table: translator_languages)
+ALTER TABLE translator_languages ADD CONSTRAINT translator_languages_languages
+    FOREIGN KEY (LanguageID)
+    REFERENCES languages (LanguageID);
+
+-- Reference: translator_languages_translators (table: translator_languages)
+ALTER TABLE translator_languages ADD CONSTRAINT translator_languages_translators
+    FOREIGN KEY (TranslatorID)
+    REFERENCES translators (TranslatorID);
 
 -- End of file.
 
