@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-12-11 19:57:21.805
+-- Last modification date: 2023-12-11 20:27:04.359
 
 -- tables
 -- Table: attendance
@@ -103,20 +103,19 @@ CREATE TABLE modules (
 
 -- Table: passing_exams
 CREATE TABLE passing_exams (
-    PassingExamID int  NOT NULL,
     ExamID int  NOT NULL,
     EventStudentID int  NOT NULL,
-    CONSTRAINT passing_exams_pk PRIMARY KEY  (PassingExamID)
+    IsPassed int  NOT NULL,
+    CONSTRAINT passing_exams_pk PRIMARY KEY  (ExamID,EventStudentID)
 );
 
 -- Table: passing_practices
 CREATE TABLE passing_practices (
-    PassingPracticeID int  NOT NULL,
     PracticeID int  NOT NULL,
     EventStudentID int  NOT NULL,
     IsPresent bit  NOT NULL,
     IsPassed bit  NOT NULL,
-    CONSTRAINT passing_practices_pk PRIMARY KEY  (PassingPracticeID)
+    CONSTRAINT passing_practices_pk PRIMARY KEY  (PracticeID,EventStudentID)
 );
 
 -- Table: practices
