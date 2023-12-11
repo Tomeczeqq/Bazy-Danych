@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-12-11 15:07:15.66
+-- Last modification date: 2023-12-11 19:57:21.805
 
 -- tables
 -- Table: attendance
@@ -95,6 +95,7 @@ CREATE TABLE modules (
     Description varchar  NOT NULL,
     BeginDate date  NOT NULL,
     EndDate date  NOT NULL,
+    Capacity int  NOT NULL,
     RoomID int  NOT NULL,
     ModulePrice int  NOT NULL,
     CONSTRAINT modules_pk PRIMARY KEY  (ModuleID)
