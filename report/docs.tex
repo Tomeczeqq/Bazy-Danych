@@ -8,9 +8,29 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[export]{adjustbox}
+\usepackage{xcolor,listings}
+\usepackage{textcomp}
 \usepackage{color}  
+\usepackage{underscore}
 \usepackage{hyperref}
 \usepackage{pdfpages}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{HTML}{C42043}
+\definecolor{backcolour}{HTML}{FFFFFF}
+\definecolor{bookColor}{cmyk}{0,0,0,0.90}  
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\color{bookColor}
+
+\lstset{upquote=true}
+
 \hypersetup{
     colorlinks=true,
     linktoc=all,
@@ -27,6 +47,34 @@
 \cfoot{}
 \rfoot{\thepage} 
 
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    numberstyle=\numberstyle,
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=10pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+}
+\lstset{style=mystyle}
+
+\newcommand\numberstyle[1]{%
+    \footnotesize
+    \color{codegray}%
+    \ttfamily
+    \ifnum#1<10 0\fi#1 |%
+}
+
+\lstset{frame=lrbt,xleftmargin=\fboxsep,xrightmargin=-\fboxsep}
 
 
 \begin{document}
@@ -66,4 +114,7 @@ AUTORZY:  & PROWADZĄCY:\\
 
 \input{part1.txt}
 \input{part2.txt}
+\input{part3.txt}
+
+
 \end{document}

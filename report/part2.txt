@@ -2,6 +2,6 @@
 \section{Diagram}
 \vspace*{\fill}
 \begin{center}
-\includegraphics[scale=0.5]{diagram3.pdf}
+\includegraphics[scale=0.35]{newestDiagram.pdf}
 \end{center}
 \vspace*{\fill}

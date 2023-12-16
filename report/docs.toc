@@ -8,3 +8,26 @@
 \contentsline {subsubsection}{\numberline {2.1.5}Klient}{2}{subsubsection.2.1.5}%
 \contentsline {subsubsection}{\numberline {2.1.6}Niezarejestrowany użytkownik}{3}{subsubsection.2.1.6}%
 \contentsline {section}{\numberline {3}Diagram}{3}{section.3}%
+\contentsline {section}{\numberline {4}Tabele}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tabela employees}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Tabela attendance}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Tabela event_lecturers}{5}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Tabela event_students}{5}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Tabela events}{5}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Tabela exams}{6}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Tabela languages}{6}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Tabela lecturers}{7}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Tabela modules}{7}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Tabela order_event_details}{8}{subsection.4.10}%
+\contentsline {subsection}{\numberline {4.11}Tabela order_module_details}{8}{subsection.4.11}%
+\contentsline {subsection}{\numberline {4.12}Tabela orders}{8}{subsection.4.12}%
+\contentsline {subsection}{\numberline {4.13}Tabela passing_exams}{9}{subsection.4.13}%
+\contentsline {subsection}{\numberline {4.14}Tabela passing_practices}{9}{subsection.4.14}%
+\contentsline {subsection}{\numberline {4.15}Tabela payment_statuses}{9}{subsection.4.15}%
+\contentsline {subsection}{\numberline {4.16}Tabela practices}{10}{subsection.4.16}%
+\contentsline {subsection}{\numberline {4.17}Tabela rooms}{10}{subsection.4.17}%
+\contentsline {subsection}{\numberline {4.18}Tabela single_module_students}{10}{subsection.4.18}%
+\contentsline {subsection}{\numberline {4.19}Tabela students}{11}{subsection.4.19}%
+\contentsline {subsection}{\numberline {4.20}Tabela translator_languages}{11}{subsection.4.20}%
+\contentsline {subsection}{\numberline {4.21}Tabela translators}{12}{subsection.4.21}%
+\contentsline {subsection}{\numberline {4.22}Tabela types}{12}{subsection.4.22}%
