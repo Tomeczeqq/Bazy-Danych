@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.11.27)  18 DEC 2023 20:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.11.27)  18 DEC 2023 22:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -607,10 +607,10 @@ Package rerunfilecheck Info: File `docs.out' has not changed.
 (rerunfilecheck)             Checksum: 573A2CD8DB1DA3636624B7163F37A23D;5879.
  ) 
 Here is how much of TeX's memory you used:
- 14690 strings out of 477975
- 230197 string characters out of 5839051
+ 14689 strings out of 477975
+ 230189 string characters out of 5839051
  2262330 words of memory out of 5000000
- 33994 multiletter control sequences out of 15000+600000
+ 33993 multiletter control sequences out of 15000+600000
  530633 words of font info for 69 fonts, out of 8000000 for 9000
  56 hyphenation exceptions out of 8191
  75i,12n,77p,306b,2057s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -627,7 +627,7 @@ pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.60
 c2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
 xc2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/e
 ctc2074.600pk>
-Output written on docs.pdf (19 pages, 303108 bytes).
+Output written on docs.pdf (19 pages, 303120 bytes).
 PDF statistics:
  1427 PDF objects out of 1440 (max. 8388607)
  1016 compressed objects within 11 object streams

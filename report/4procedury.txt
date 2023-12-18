@@ -28,7 +28,7 @@ END
 Rejestruje nowego wykładowcę do bazy danych
 
 \begin{lstlisting}[language = SQL]
-CREATE PROCEDURE [dbo].[RegisterLecturer]
+CREATE PROCEDURE RegisterLecturer
 @FirstName varchar(30),
 @LastName varchar(30),
 @Email varchar(30),
@@ -55,7 +55,7 @@ END
 \end{lstlisting}
 
 \subsection{AddEvent}
-Dodaje nowe wydarzenie.
+Dodaje nowe studia lub kurs.
 
 \begin{lstlisting}[language = SQL]
 CREATE PROCEDURE AddEvent
@@ -78,7 +78,7 @@ END
 \end{lstlisting}
 
 \subsection{AddModule}
-Dodaje nowy moduł.
+Dodaje nowy moduł dla kursu lub dla studiów.
 
 \begin{lstlisting}[language = SQL]
 CREATE PROCEDURE AddModule
