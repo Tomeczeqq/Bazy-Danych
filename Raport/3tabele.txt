@@ -33,7 +33,8 @@ CREATE TABLE employees (
     PostalCode varchar(30)  NOT NULL,
     Country varchar(30)  NOT NULL,
     Phone varchar(30)  NOT NULL,
-    CONSTRAINT employees_pk PRIMARY KEY  (EmployeeID)
+    CONSTRAINT employees_pk PRIMARY KEY  (EmployeeID),
+    CHECK (BirthDate > '01-01-1910' AND BirthDate < getdate())
 );
 
 ALTER TABLE employees ADD CONSTRAINT employees_countries
@@ -120,7 +121,7 @@ ALTER TABLE event_students ADD CONSTRAINT event_students_students
 \end{lstlisting}
 
 \subsection{Tabela events}
-Zawiera informacje na temat studiów, kursów i webinarów.
+Zawiera informacje na temat wydarzeń (studiów, kursów i webinarów).
 \begin{itemize}
 \item[] \textbf{EventID} - Identyfikator wydarzenia
 \item[] \textbf{Title} - Tytuł wydarzenia
@@ -141,7 +142,9 @@ CREATE TABLE events (
     Capacity int  NOT NULL,
     EventPrice decimal(10,2)  NOT NULL,
     Description varchar(30)  NOT NULL,
-    CONSTRAINT events_pk PRIMARY KEY  (EventID)
+    CONSTRAINT events_pk PRIMARY KEY  (EventID),
+    CHECK (EndDate > BeginDate),
+    CHECK (EventPrice > 0)
 );
 
 ALTER TABLE events ADD CONSTRAINT events_types
@@ -165,7 +168,8 @@ CREATE TABLE exams (
     BeginDate datetime  NOT NULL,
     EndDate datetime  NOT NULL,
     Description varchar(30)  NOT NULL,
-    CONSTRAINT exams_pk PRIMARY KEY  (ExamID)
+    CONSTRAINT exams_pk PRIMARY KEY  (ExamID),
+    CHECK (EndDate > BeginDate)
 );
 
 ALTER TABLE exams ADD CONSTRAINT exams_events
@@ -219,7 +223,8 @@ CREATE TABLE lecturers (
     CountryID int  NOT NULL,
     Phone varchar(30)  NOT NULL,
     LanguageID int  NOT NULL,
-    CONSTRAINT lecturers_pk PRIMARY KEY  (LecturerID)
+    CONSTRAINT lecturers_pk PRIMARY KEY  (LecturerID),
+    CHECK (BirthDate > '01-01-1910' AND BirthDate < getdate())
 );
 
 ALTER TABLE lecturers ADD CONSTRAINT lecturers_countries
@@ -261,7 +266,9 @@ CREATE TABLE modules (
     Capacity int  NOT NULL,
     RoomID int  NOT NULL,
     ModulePrice decimal(10,2)  NOT NULL,
-    CONSTRAINT modules_pk PRIMARY KEY  (ModuleID)
+    CONSTRAINT modules_pk PRIMARY KEY  (ModuleID),
+    CHECK (EndDate > BeginDate),
+    CHECK (ModulePrice > 0)
 );
 
 ALTER TABLE modules ADD CONSTRAINT modules_event_lecturers
@@ -286,7 +293,7 @@ ALTER TABLE modules ADD CONSTRAINT modules_translators
 \end{lstlisting}
 
 \subsection{Tabela order_event_details}
-Zawiera cenę oraz identyfikator wydarzenia,  dla wydarzeń zakupionych w danym zamówieniu.
+Zawiera cenę oraz identyfikator wydarzenia, dla wydarzeń zakupionych w danym zamówieniu.
 \begin{itemize}
 \item[] \textbf{OrderID} - Identyfikator zamówienia
 \item[] \textbf{EventID} - Identyfikator wydarzenia
@@ -297,7 +304,8 @@ CREATE TABLE order_event_details (
     OrderID int  NOT NULL,
     EventID int  NOT NULL,
     Price decimal(10,2)  NOT NULL,
-    CONSTRAINT order_event_details_pk PRIMARY KEY  (OrderID,EventID)
+    CONSTRAINT order_event_details_pk PRIMARY KEY  (OrderID,EventID),
+    CHECK (Price > 0)
 );
 
 ALTER TABLE order_event_details ADD CONSTRAINT order_event_details_orders
@@ -321,7 +329,8 @@ CREATE TABLE order_module_details (
     OrderID int  NOT NULL,
     ModuleID int  NOT NULL,
     Price decimal(10,2)  NOT NULL,
-    CONSTRAINT order_module_details_pk PRIMARY KEY  (OrderID,ModuleID)
+    CONSTRAINT order_module_details_pk PRIMARY KEY  (OrderID,ModuleID),
+    CHECK (Price > 0)
 );
 
 ALTER TABLE order_module_details ADD CONSTRAINT order_module_details_modules
@@ -399,7 +408,8 @@ CREATE TABLE passing_practices (
     EventStudentID int  NOT NULL,
     IsPresent bit  NULL,
     IsPassed bit  NULL,
-    CONSTRAINT passing_practices_pk PRIMARY KEY  (PracticeID,EventStudentID)
+    CONSTRAINT passing_practices_pk PRIMARY KEY  (PracticeID,EventStudentID),
+    CHECK (IsPresent = 1 OR (IsPresent = 0 AND IsPassed = 0))
 );
 
 ALTER TABLE passing_practices ADD CONSTRAINT passing_practices_event_students
@@ -444,7 +454,8 @@ CREATE TABLE practices (
     BeginDate datetime  NOT NULL,
     EndDate datetime  NOT NULL,
     RoomID int  NOT NULL,
-    CONSTRAINT practices_pk PRIMARY KEY  (PracticeID)
+    CONSTRAINT practices_pk PRIMARY KEY  (PracticeID),
+    CHECK (EndDate > BeginDate)
 );
 
 ALTER TABLE practices ADD CONSTRAINT practices_events
@@ -532,7 +543,8 @@ CREATE TABLE students (
     PostalCode varchar(30)  NOT NULL,
     CountryID int  NOT NULL,
     Phone varchar(30)  NOT NULL,
-    CONSTRAINT students_pk PRIMARY KEY  (StudentID)
+    CONSTRAINT students_pk PRIMARY KEY  (StudentID),
+    CHECK (BirthDate > '01-01-1910' AND BirthDate < getdate())
 );
 
 ALTER TABLE students ADD CONSTRAINT students_countries
@@ -599,7 +611,7 @@ Tabela jest słownikiem państw.
 \begin{itemize}
 \item[] \textbf{CountryID} - Identyfikator państwa
 \item[] \textbf{CountryName} - Nazwa państwa
-\item[] \textbf{isActive} - Istnienie państwa
+\item[] \textbf{isActive} - Informacja czy państwo nadal istnieje
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE countries (
