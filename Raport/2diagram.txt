@@ -1,0 +1,7 @@
+%\newpage
+\section{Diagram}
+\vspace*{\fill}
+\begin{center}
+\includegraphics[scale=0.35]{final_diagram.pdf}
+\end{center}
+\vspace*{\fill}

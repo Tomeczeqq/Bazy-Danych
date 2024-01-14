@@ -1,0 +1,53 @@
+\section{Wprowadzenie}
+Celem projektu było zaplanowanie systemu bazodanowego dla firmy oferującej różnego rodzaju kursy i szkolenia. Początkowo oferowane usługi były świadczone wyłącznie
+stacjonarnie, ale ze względu na pandemię COVID-19 usługi zostały w różnym stopniu zdigitalizowane. Obecnie model świadczenia usług jest hybrydowy, ale bardzo niejednolity dla różnych usług. Oferowane usługi dzielą się na webinary, kursy oraz szkolenia.
+
+\section{Funkcje realizowane przez system}
+\subsection{Funkcje użytkowników}
+
+\subsubsection{Administrator}
+\begin{itemize}
+\item Dodawanie pracowników
+\item Obsługa platformy chmurowej (w tym usuwanie nagrań webinariów i kursów)
+\end{itemize}
+
+\subsubsection{Dyrektor}
+\begin{itemize}
+\item Wydanie zgody na płatność odroczoną w czasie
+\end{itemize}
+
+\subsubsection{Menadżer}
+\begin{itemize}
+\item Generowanie i przetwarzanie informacji o płatnościach
+\item Wprowadzenie cen dla płatnych webinariów, kursów oraz studiów
+\item Tworzenie programu studiów
+\item Wprowadzanie informacji o kolejnych dniach webinarium
+\item Wprowadzanie informacji o salach (kursy oraz studia stacjonarne)
+\item Tworzenie oraz zmienianie harmonogramu zajęć studiów
+\item Dostęp do raportów bilokacji – listy osób zapisanych na kolidujące się zajęcia 
+\item Dodawanie nauczycieli
+\item Generowanie raportów finansowych – informacje o płatnościach klientów, zestawienie przychodów dla każdej oferowanej formy szkolenia
+\end{itemize}
+
+\subsubsection{Nauczyciel}
+\begin{itemize}
+\item Prowadzenie webinariów, kursów oraz studiów
+\item Dostęp do listy klientów i ich obecności na poszczególnych modułach zajęć
+\end{itemize}
+
+\subsubsection{Klient}
+\begin{itemize}
+\item Dostęp do darmowego webinarium 
+\item Wykupienie dostępu do płatnego webinarium lub kursu
+\item Sprawdzanie przypisanych sal (kursy oraz studia stacjonarne)
+\item Sprawdzenie dotychczasowej frekwencji własnej na studiach
+\item Dostęp do nagrań (kursy online asynchroniczne)
+\item Dostęp do nagrań ,,na żywo'' oraz do archiwalnych nagrań przez 30 dni (kursy online synchroniczne)
+\item Zapisanie się na zajęcia lub kurs w celu odrobienia nieobecności 
+\item Wyszukanie i zapisanie się na pojedyncze spotkanie studyjne
+\end{itemize}
+
+\subsubsection{Niezarejestrowany użytkownik}
+\begin{itemize}
+\item Założenie konta 
+\end{itemize}
