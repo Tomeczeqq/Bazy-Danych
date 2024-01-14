@@ -40,14 +40,11 @@ CREATE PROCEDURE RegisterLecturer
 @PostalCode varchar(30),
 @Country varchar(30),
 @Phone varchar(30),
-@Language varchar(30)
+@LanguageID INT
 AS
 BEGIN
     IF @HireDate IS NULL
     SET @HireDate = GETDATE();
-
-    DECLARE @LanguageID INT;
-    SELECT @LanguageID = LanguageID FROM languages WHERE LanguageName = @Language;
 
     INSERT INTO lecturers (FirstName, LastName, Email, BirthDate, HireDate, Address, City, Region, PostalCode, Country, Phone, LanguageID)
     VALUES (@FirstName, @LastName, @Email, @BirthDate, @HireDate, @Address, @City, @Region, @PostalCode, @Country, @Phone, @LanguageID)
@@ -60,7 +57,7 @@ Dodaje nowe studia lub kurs.
 \begin{lstlisting}[language = SQL]
 CREATE PROCEDURE AddEvent
 @Title varchar(30),
-@Type varchar(30),
+@TypeID INT,
 @BeginDate DATE,
 @EndDate DATE,
 @Capacity INT,
@@ -69,9 +66,6 @@ CREATE PROCEDURE AddEvent
 
 AS
 BEGIN
-    DECLARE @TypeID INT;
-    SELECT @TypeID = TypeID FROM types WHERE TypeName = @Type
-
     INSERT INTO events (Title, TypeID, BeginDate, EndDate, Capacity, EventPrice, Description)
     VALUES (@Title, @TypeID, @BeginDate, @EndDate, @Capacity, @EventPrice, @Description)
 END
