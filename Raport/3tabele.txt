@@ -1,0 +1,623 @@
+\newpage
+\section{Tabele}
+
+\subsection{Tabela employees}
+Przechowuje informacje na temat zatrudnionych pracowników.
+\begin{itemize}
+\item[] \textbf{EmployeeID} - Identyfikator pracownika
+\item[] \textbf{FirstName} -Imię pracownika
+\item[] \textbf{LastName} - Nazwisko pracownika
+\item[] \textbf{Email} - Adres email pracownika
+\item[] \textbf{Role} - Rola pracownika
+\item[] \textbf{BirthDate} - Data urodzenia pracownika
+\item[] \textbf{HireDate} - Data zatrudnienia pracownika
+\item[] \textbf{Address} - Adres pracownika
+\item[] \textbf{City} - Miasto zamieszkania pracownika
+\item[] \textbf{Region} - Region zamieszkania pracownika
+\item[] \textbf{PostalCode} - Kod pocztowy pracownika
+\item[] \textbf{Country} - Kraj zamieszkania pracownika
+\item[] \textbf{Phone} - Numer telefonu pracownika
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE employees (
+    EmployeeID int  NOT NULL,
+    FirstName varchar(30)  NOT NULL,
+    LastName varchar(30)  NOT NULL,
+    Email varchar(30)  NOT NULL,
+    Role varchar(30)  NOT NULL,
+    BirthDate date  NOT NULL,
+    HireDate date  NOT NULL,
+    Address varchar(30)  NOT NULL,
+    City varchar(30)  NOT NULL,
+    Region varchar(30)  NULL,
+    PostalCode varchar(30)  NOT NULL,
+    Country varchar(30)  NOT NULL,
+    Phone varchar(30)  NOT NULL,
+    CONSTRAINT employees_pk PRIMARY KEY  (EmployeeID),
+    CHECK (BirthDate > '01-01-1910' AND BirthDate < getdate())
+);
+
+ALTER TABLE employees ADD CONSTRAINT employees_countries
+    FOREIGN KEY (CountryID)
+    REFERENCES countries (CountryID);
+\end{lstlisting}
+
+\subsection{Tabela attendance}
+Przechowuje informacje o obecnościach studentów w danym module. Dzięki tej tabeli jesteśmy w stanie dowiedzieć się czy dany student był obecny na danym module zajęć.
+\begin{itemize}
+\item[] \textbf{AttendanceID} - Identyfikator obecności na module
+\item[] \textbf{EventStudentID} - Identyfikator przypisania studenta do wydarzenia
+\item[] \textbf{ModuleID} - Identyfikator modułu
+\item[] \textbf{IsPresent} - Informacja czy student był obecny na zajęciach
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE attendance (
+    AttendanceID int  NOT NULL,
+    EventStudentID int  NOT NULL,
+    ModuleID int  NOT NULL,
+    IsPresent bit  NULL,
+    CONSTRAINT attendance_pk PRIMARY KEY  (AttendanceID)
+);
+
+ALTER TABLE attendance ADD CONSTRAINT attendance_event_students
+    FOREIGN KEY (EventStudentID)
+    REFERENCES event_students (EventStudentID);
+
+ALTER TABLE attendance ADD CONSTRAINT attendance_modules
+    FOREIGN KEY (ModuleID)
+    REFERENCES modules (ModuleID);
+\end{lstlisting}
+
+\subsection{Tabela event_lecturers}
+Łączy dane wydarzenie z prowadzącym je wykładowcą.
+\begin{itemize}
+\item[] \textbf{EventID} - Identyfikator wydarzenia
+\item[] \textbf{LecturerID} - Identyfikator wykładowcy
+\item[] \textbf{Description} - Opis obowiązków  prowadzącego
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE event_lecturers (
+    EventID int  NOT NULL,
+    LecturerID int  NOT NULL,
+    Description varchar(30)  NOT NULL,
+    CONSTRAINT event_lecturers_pk PRIMARY KEY  (EventID,LecturerID)
+);
+
+ALTER TABLE event_lecturers ADD CONSTRAINT event_lecturers_events
+    FOREIGN KEY (EventID)
+    REFERENCES events (EventID);
+
+ALTER TABLE event_lecturers ADD CONSTRAINT event_lecturers_lecturers
+    FOREIGN KEY (LecturerID)
+    REFERENCES lecturers (LecturerID);
+\end{lstlisting}
+
+\subsection{Tabela event_students}
+Łączy dane wydarzenie z uczestniczącym w nim studentem.
+\begin{itemize}
+\item[] \textbf{EventStudentID} - Identyfikator przypisania studenta do wydarzenia
+\item[] \textbf{StudentID} - Identyfikator studenta
+\item[] \textbf{EventID} - Identyfikator wydarzenia
+\item[] \textbf{IsPaidAdvance} - Informacja czy zaliczka została wpłacona
+\item[] \textbf{IsPaidFull} - Informacja czy została zapłacona całkowita kwota
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE event_students (
+    EventStudentID int  NOT NULL,
+    StudentID int  NOT NULL,
+    EventID int  NOT NULL,
+    IsPaidAdvance bit  NOT NULL,
+    IsPaidFull bit  NOT NULL,
+    CONSTRAINT event_students_pk PRIMARY KEY  (EventStudentID)
+);
+
+ALTER TABLE event_students ADD CONSTRAINT event_students_events
+    FOREIGN KEY (EventID)
+    REFERENCES events (EventID);
+
+ALTER TABLE event_students ADD CONSTRAINT event_students_students
+    FOREIGN KEY (StudentID)
+    REFERENCES students (StudentID);
+\end{lstlisting}
+
+\subsection{Tabela events}
+Zawiera informacje na temat wydarzeń (studiów, kursów i webinarów).
+\begin{itemize}
+\item[] \textbf{EventID} - Identyfikator wydarzenia
+\item[] \textbf{Title} - Tytuł wydarzenia
+\item[] \textbf{TypeID} - Rodzaj wydarzenia
+\item[] \textbf{BeginDate} - Data początkowa wydarzenia
+\item[] \textbf{EndDate} - Data końcowa wydarzenia
+\item[] \textbf{Capacity} - Limit osób, które mogą uczestniczyć w wydarzeniu
+\item[] \textbf{EventPrice} - Cena wydarzenia
+\item[] \textbf{Description} - Opis wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE events (
+    EventID int  NOT NULL,
+    Title varchar(30)  NOT NULL,
+    TypeID int  NOT NULL,
+    BeginDate date  NOT NULL,
+    EndDate date  NOT NULL,
+    Capacity int  NOT NULL,
+    EventPrice decimal(10,2)  NOT NULL,
+    Description varchar(30)  NOT NULL,
+    CONSTRAINT events_pk PRIMARY KEY  (EventID),
+    CHECK (EndDate > BeginDate),
+    CHECK (EventPrice > 0)
+);
+
+ALTER TABLE events ADD CONSTRAINT events_types
+    FOREIGN KEY (TypeID)
+    REFERENCES types (TypeID);
+\end{lstlisting}
+
+\subsection{Tabela exams}
+Zawiera informacje na temat egzaminów.
+\begin{itemize}
+\item[] \textbf{ExamID} - Identyfikator egzaminu
+\item[] \textbf{EventID} - Identyfikator wydarzenia, pod które podlega egzamin
+\item[] \textbf{BeginDate} - Data początkowa egzaminu
+\item[] \textbf{EndDate} - Data końcowa egzaminu
+\item[] \textbf{Description} - Opis
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE exams (
+    ExamID int  NOT NULL,
+    EventID int  NOT NULL,
+    BeginDate datetime  NOT NULL,
+    EndDate datetime  NOT NULL,
+    Description varchar(30)  NOT NULL,
+    CONSTRAINT exams_pk PRIMARY KEY  (ExamID),
+    CHECK (EndDate > BeginDate)
+);
+
+ALTER TABLE exams ADD CONSTRAINT exams_events
+    FOREIGN KEY (EventID)
+    REFERENCES events (EventID);
+\end{lstlisting}
+
+\subsection{Tabela languages}
+Zawiera informacje na temat języków, w którym mogą być prowadzone zajęcia.
+\begin{itemize}
+\item[] \textbf{LanguageID} - Identyfikator języka
+\item[] \textbf{LanguageName} - Nazwa języka
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE languages (
+    LanguageID int  NOT NULL,
+    LanguageName varchar(30)  NOT NULL,
+    CONSTRAINT languages_pk PRIMARY KEY  (LanguageID)
+);
+\end{lstlisting}
+
+\subsection{Tabela lecturers}
+Zawiera informacje na temat wykładowców.
+\begin{itemize}
+\item[] \textbf{LecturerID} - Identyfikator wykładowcy
+\item[] \textbf{FirstName} - Imię wykładowcy
+\item[] \textbf{LastName} - Nazwisko wykładowcy
+\item[] \textbf{Email} - Adres email wykładowcy
+\item[] \textbf{BirthDate} - Data urodzenia wykładowcy
+\item[] \textbf{HireDate} - Data zatrudnienia wykładowcy
+\item[] \textbf{Address} - Adres zamieszkania wykładowcy
+\item[] \textbf{City} - Miasto zamieszkania wykładowcy
+\item[] \textbf{Region} - Region zamieszkania wykładowcy
+\item[] \textbf{PostalCode} - Kod pocztowy wykładowcy
+\item[] \textbf{Country} - Kraj zamieszkania wykładowcy
+\item[] \textbf{Phone} - Numer telefonu wykładowcy
+\item[] \textbf{LanguageID} - ID języka wykładowcy, w którym prowadzi wykład
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE lecturers (
+    LecturerID int  NOT NULL,
+    FirstName varchar(30)  NOT NULL,
+    LastName varchar(30)  NOT NULL,
+    Email varchar(30)  NOT NULL,
+    BirthDate date  NOT NULL,
+    HireDate date  NOT NULL,
+    Address varchar(30)  NOT NULL,
+    City varchar(30)  NOT NULL,
+    Region varchar(30)  NULL,
+    PostalCode varchar(30)  NOT NULL,
+    CountryID int  NOT NULL,
+    Phone varchar(30)  NOT NULL,
+    LanguageID int  NOT NULL,
+    CONSTRAINT lecturers_pk PRIMARY KEY  (LecturerID),
+    CHECK (BirthDate > '01-01-1910' AND BirthDate < getdate())
+);
+
+ALTER TABLE lecturers ADD CONSTRAINT lecturers_countries
+    FOREIGN KEY (CountryID)
+    REFERENCES countries (CountryID);
+
+ALTER TABLE lecturers ADD CONSTRAINT lecturers_languages
+    FOREIGN KEY (LanguageID)
+    REFERENCES languages (LanguageID);
+\end{lstlisting}
+
+\subsection{Tabela modules}
+Zawiera informacje na temat pojedycznego modułu.
+\begin{itemize}
+\item[] \textbf{ModuleID} - Identyfikator modułu
+\item[] \textbf{EventID} - Identyfikator wydarzenia, pod który podlega moduł
+\item[] \textbf{ModuleNo} - Numer modułu
+\item[] \textbf{LecturerID} - ID wykładowcy prowadzącego moduł
+\item[] \textbf{LanguageID} - ID języka, w którym moduł jest prowadzony
+\item[] \textbf{TranslatorID} - ID tłumacza
+\item[] \textbf{Description} - Opis
+\item[] \textbf{BeginDate} - Data początkowa modułu
+\item[] \textbf{EndDate} - Data końcowa modułu
+\item[] \textbf{Capacity} - Maksymalna liczba osób mogących uczestniczyć w module
+\item[] \textbf{RoomID} - ID sali, w której odbywa się moduł
+\item[] \textbf{ModulePrice} - Cena zakupu modułu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE modules (
+    ModuleID int  NOT NULL,
+    EventID int  NOT NULL,
+    ModuleNo int  NOT NULL,
+    LecturerID int  NOT NULL,
+    LanguageID int  NOT NULL,
+    TranslatorID int  NULL,
+    Description varchar(30)  NOT NULL,
+    BeginDate datetime  NOT NULL,
+    EndDate datetime  NOT NULL,
+    Capacity int  NOT NULL,
+    RoomID int  NOT NULL,
+    ModulePrice decimal(10,2)  NOT NULL,
+    CONSTRAINT modules_pk PRIMARY KEY  (ModuleID),
+    CHECK (EndDate > BeginDate),
+    CHECK (ModulePrice > 0)
+);
+
+ALTER TABLE modules ADD CONSTRAINT modules_event_lecturers
+    FOREIGN KEY (EventID,LecturerID)
+    REFERENCES event_lecturers (EventID,LecturerID);
+
+ALTER TABLE modules ADD CONSTRAINT modules_events
+    FOREIGN KEY (EventID)
+    REFERENCES events (EventID);
+
+ALTER TABLE modules ADD CONSTRAINT modules_languages
+    FOREIGN KEY (LanguageID)
+    REFERENCES languages (LanguageID);
+
+ALTER TABLE modules ADD CONSTRAINT modules_rooms
+    FOREIGN KEY (RoomID)
+    REFERENCES rooms (RoomID);
+
+ALTER TABLE modules ADD CONSTRAINT modules_translators
+    FOREIGN KEY (TranslatorID)
+    REFERENCES translators (TranslatorID);
+\end{lstlisting}
+
+\subsection{Tabela order_event_details}
+Zawiera cenę oraz identyfikator wydarzenia, dla wydarzeń zakupionych w danym zamówieniu.
+\begin{itemize}
+\item[] \textbf{OrderID} - Identyfikator zamówienia
+\item[] \textbf{EventID} - Identyfikator wydarzenia
+\item[] \textbf{Price} - Cena zakupu wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE order_event_details (
+    OrderID int  NOT NULL,
+    EventID int  NOT NULL,
+    Price decimal(10,2)  NOT NULL,
+    CONSTRAINT order_event_details_pk PRIMARY KEY  (OrderID,EventID),
+    CHECK (Price > 0)
+);
+
+ALTER TABLE order_event_details ADD CONSTRAINT order_event_details_orders
+    FOREIGN KEY (OrderID)
+    REFERENCES orders (OrderID);
+
+ALTER TABLE order_event_details ADD CONSTRAINT order_module_details_events
+    FOREIGN KEY (EventID)
+    REFERENCES events (EventID);
+\end{lstlisting}
+
+\subsection{Tabela order_module_details}
+Zawiera cenę oraz identyfikator modułu,  dla modułów zakupionych w danym zamówieniu.
+\begin{itemize}
+\item[] \textbf{OrderID} - Identyfikator zamówienia
+\item[] \textbf{ModuleID} - Identyfikator modułu
+\item[] \textbf{Price} - Cena zakupu modułu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE order_module_details (
+    OrderID int  NOT NULL,
+    ModuleID int  NOT NULL,
+    Price decimal(10,2)  NOT NULL,
+    CONSTRAINT order_module_details_pk PRIMARY KEY  (OrderID,ModuleID),
+    CHECK (Price > 0)
+);
+
+ALTER TABLE order_module_details ADD CONSTRAINT order_module_details_modules
+    FOREIGN KEY (ModuleID)
+    REFERENCES modules (ModuleID);
+
+ALTER TABLE order_module_details ADD CONSTRAINT order_module_details_orders
+    FOREIGN KEY (OrderID)
+    REFERENCES orders (OrderID);
+\end{lstlisting}
+
+\subsection{Tabela orders}
+Zawiera informacje na temat dokonanych zamówień.
+\begin{itemize}
+\item[] \textbf{OrderID} - Identyfikator zamówienia
+\item[] \textbf{StudentID} - Identyfikator studenta, który dokonał zamówienia
+\item[] \textbf{OrderDate} - Data złożenia zamówienia
+\item[] \textbf{PaymentStatusID} - Identyfikator statusu płatności
+\item[] \textbf{PaymentToken} - Unikalny token płatności
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE orders (
+    OrderID int  NOT NULL,
+    StudentID int  NOT NULL,
+    OrderDate datetime  NOT NULL,
+    PaymentStatusID int  NOT NULL,
+    PaymentToken varchar(30)  NULL,
+    CONSTRAINT orders_pk PRIMARY KEY  (OrderID)
+);
+
+ALTER TABLE orders ADD CONSTRAINT orders_payment_statuses
+    FOREIGN KEY (PaymentStatusID)
+    REFERENCES payment_statuses (PaymentStatusID);
+
+ALTER TABLE orders ADD CONSTRAINT orders_students
+    FOREIGN KEY (StudentID)
+    REFERENCES students (StudentID);
+\end{lstlisting}
+
+\subsection{Tabela passing_exams}
+Przechowuje informacje o zaliczeniach egzaminów przez studentów.
+\begin{itemize}
+\item[] \textbf{ExamID} - Identyfikator egzaminu
+\item[] \textbf{EventStudentID} - Identyfikator przypisania studenta do danego wydarzenia
+\item[] \textbf{IsPassed} - Informacja czy student zdał egzamin
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE passing_exams (
+    ExamID int  NOT NULL,
+    EventStudentID int  NOT NULL,
+    IsPassed int  NULL,
+    CONSTRAINT passing_exams_pk PRIMARY KEY  (ExamID,EventStudentID)
+);
+
+ALTER TABLE passing_exams ADD CONSTRAINT passing_exams_event_students
+    FOREIGN KEY (EventStudentID)
+    REFERENCES event_students (EventStudentID);
+
+ALTER TABLE passing_exams ADD CONSTRAINT passing_exams_exams
+    FOREIGN KEY (ExamID)
+    REFERENCES exams (ExamID);
+\end{lstlisting}
+
+\subsection{Tabela passing_practices}
+Przechowuje informacje o zaliczeniach praktyk oraz obecnościach na nich przez studentów.
+\begin{itemize}
+\item[] \textbf{PracticeID} - Identyfikator praktyk
+\item[] \textbf{EventStudentID} - Identyfikator przypisania studenta do danego wydarzenia
+\item[] \textbf{IsPresent} - Informacja czy student był na praktykach
+\item[] \textbf{IsPassed} - Informacja czy student zaliczył praktyki
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE passing_practices (
+    PracticeID int  NOT NULL,
+    EventStudentID int  NOT NULL,
+    IsPresent bit  NULL,
+    IsPassed bit  NULL,
+    CONSTRAINT passing_practices_pk PRIMARY KEY  (PracticeID,EventStudentID),
+    CHECK (IsPresent = 1 OR (IsPresent = 0 AND IsPassed = 0))
+);
+
+ALTER TABLE passing_practices ADD CONSTRAINT passing_practices_event_students
+    FOREIGN KEY (EventStudentID)
+    REFERENCES event_students (EventStudentID);
+
+ALTER TABLE passing_practices ADD CONSTRAINT passing_practices_practices
+    FOREIGN KEY (PracticeID)
+    REFERENCES practices (PracticeID);
+\end{lstlisting}
+
+\subsection{Tabela payment_statuses}
+\begin{itemize}
+\item[] \textbf{PaymentStatusID} - Identyfikator statusu płatności
+\item[] \textbf{PaymentStatusName} - Nazwa statusu płatności
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE payment_statuses (
+    PaymentStatusID int  NOT NULL,
+    PaymentStatusName varchar(30)  NOT NULL,
+    CONSTRAINT payment_statuses_pk PRIMARY KEY  (PaymentStatusID)
+);
+\end{lstlisting}
+
+\subsection{Tabela practices}
+Tabela zawiera informacje na temat praktyk przeprowadzanych w ramach zaliczenia studiów.
+\begin{itemize}
+\item[] \textbf{PracticeID} - Identyfikator praktyk
+\item[] \textbf{EventID} - Identyfikator wydarzenia, pod które podlegają praktyki
+\item[] \textbf{PracticeNo} - Numer praktyk
+\item[] \textbf{Description} - Opis
+\item[] \textbf{BeginDate} - Data rozpoczęcia praktyk
+\item[] \textbf{EndDate} - Data zakończenia praktyk
+\item[] \textbf{RoomID} - Identyfikator sali, w której odbywają się praktyki
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE practices (
+    PracticeID int  NOT NULL,
+    EventID int  NOT NULL,
+    PracticeNo int  NOT NULL,
+    Description varchar(30)  NOT NULL,
+    BeginDate datetime  NOT NULL,
+    EndDate datetime  NOT NULL,
+    RoomID int  NOT NULL,
+    CONSTRAINT practices_pk PRIMARY KEY  (PracticeID),
+    CHECK (EndDate > BeginDate)
+);
+
+ALTER TABLE practices ADD CONSTRAINT practices_events
+    FOREIGN KEY (EventID)
+    REFERENCES events (EventID);
+
+ALTER TABLE practices ADD CONSTRAINT practices_rooms
+    FOREIGN KEY (RoomID)
+    REFERENCES rooms (RoomID);
+\end{lstlisting}
+
+\subsection{Tabela rooms}
+Tabela zawiera informacje na temat sal, w których mogą odbywać się wydarzenia, praktyki, egzaminy itd.
+\begin{itemize}
+\item[] \textbf{RoomID} - Identyfikator sali
+\item[] \textbf{Name} - Nazwa sali
+\item[] \textbf{Capacity} - Maksymalna liczba osób mogących przebywać w sali
+\item[] \textbf{Availability} - Dostępność sali
+\item[] \textbf{Equipment} - Opis wyposażenia sali
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE rooms (
+    RoomID int  NOT NULL,
+    Name varchar(30)  NOT NULL,
+    Capacity int  NOT NULL,
+    Availability bit  NOT NULL,
+    Equipment varchar(30)  NOT NULL,
+    CONSTRAINT rooms_pk PRIMARY KEY  (RoomID)
+);
+\end{lstlisting}
+
+\subsection{Tabela single_module_students}
+Tabela zawiera przypisania studentów do pojedynczych modułów.
+\begin{itemize}
+\item[] \textbf{SingleModuleStudentID} - Identyfikator przypisania studenta do pojedynczego modułu
+\item[] \textbf{ModuleID} - Identyfikator modułu
+\item[] \textbf{StudentID} - Identyfikator studenta
+\item[] \textbf{IsPaid} - Informacja, czy student opłacił moduł
+\item[] \textbf{IsPresent} - Informacja, czy student był na module
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE single_module_students (
+    SingleModuleStudentID int  NOT NULL,
+    ModuleID int  NOT NULL,
+    StudentID int  NOT NULL,
+    IsPaid bit  NOT NULL,
+    IsPresent bit  NULL,
+    CONSTRAINT single_module_students_pk PRIMARY KEY  (SingleModuleStudentID)
+);
+
+ALTER TABLE single_module_students ADD CONSTRAINT module_students_modules
+    FOREIGN KEY (ModuleID)
+    REFERENCES modules (ModuleID);
+    
+ALTER TABLE single_module_students ADD CONSTRAINT module_students_students
+    FOREIGN KEY (StudentID)
+    REFERENCES students (StudentID);
+\end{lstlisting}
+
+\subsection{Tabela students}
+Tabela zawiera informacje na temat zarejestrowanych studentów.  
+\begin{itemize}
+\item[] \textbf{StudentID} - Identyfikator studenta
+\item[] \textbf{FirstName} - Imię studenta
+\item[] \textbf{LastName} - Nazwisko studenta
+\item[] \textbf{Email} - Adres email studenta
+\item[] \textbf{BirthDate} - Data urodzenia studenta
+\item[] \textbf{Address} - Adres zamieszkania studenta
+\item[] \textbf{City} - Miasto zamieszkania studenta
+\item[] \textbf{Region} - Region zamieszkania studenta
+\item[] \textbf{PostalCode} - Kod pocztowy studenta
+\item[] \textbf{Country} - Kraj zamieszkania studenta
+\item[] \textbf{Phone} - Numer telefonu studenta
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE students (
+    StudentID int  NOT NULL,
+    FirstName varchar(30)  NOT NULL,
+    LastName varchar(30)  NOT NULL,
+    Email varchar(30)  NOT NULL,
+    BirthDate date  NOT NULL,
+    Address varchar(30)  NOT NULL,
+    City varchar(30)  NOT NULL,
+    Region varchar(30)  NOT NULL,
+    PostalCode varchar(30)  NOT NULL,
+    CountryID int  NOT NULL,
+    Phone varchar(30)  NOT NULL,
+    CONSTRAINT students_pk PRIMARY KEY  (StudentID),
+    CHECK (BirthDate > '01-01-1910' AND BirthDate < getdate())
+);
+
+ALTER TABLE students ADD CONSTRAINT students_countries
+    FOREIGN KEY (CountryID)
+    REFERENCES countries (CountryID);
+\end{lstlisting}
+
+\subsection{Tabela translator_languages}
+Tabela łączy identyfikator tłumacza z identyfikatorem języka, którym tłumacz potrafi się posługiwać. 
+\begin{itemize}
+\item[] \textbf{TranslatorID} - Identyfikator tłumacza
+\item[] \textbf{LanguageID} - Identyfikator języka
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE translator_languages (
+    TranslatorID int  NOT NULL,
+    LanguageID int  NOT NULL,
+    CONSTRAINT translator_languages_pk PRIMARY KEY  (TranslatorID,LanguageID)
+);
+
+ALTER TABLE translator_languages ADD CONSTRAINT translator_languages_languages
+    FOREIGN KEY (LanguageID)
+    REFERENCES languages (LanguageID);
+
+ALTER TABLE translator_languages ADD CONSTRAINT translator_languages_translators
+    FOREIGN KEY (TranslatorID)
+    REFERENCES translators (TranslatorID);
+\end{lstlisting}
+
+\subsection{Tabela translators}
+Tabela przechowuje informacje na temat zatrudnionych tłumaczy.
+\begin{itemize}
+\item[] \textbf{TranslatorID} - Identyfikator tłumacza
+\item[] \textbf{FirstName} - Imię tłumacza
+\item[] \textbf{LastName} - Nazwisko tłumacza
+\item[] \textbf{Email} - Adres email tłumacza
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE translators (
+    TranslatorID int  NOT NULL,
+    FirstName varchar(30)  NOT NULL,
+    LastName varchar(30)  NOT NULL,
+    Email varchar(30)  NOT NULL,
+    CONSTRAINT translators_pk PRIMARY KEY  (TranslatorID)
+);
+\end{lstlisting}
+
+\subsection{Tabela types}
+Tabela zawiera informacje na temat typów wydarzeń, jakie są w ofercie firmy.
+\begin{itemize}
+\item[] \textbf{TypeID} - Identyfikator typu
+\item[] \textbf{TypeName} - Nazwa typu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE types (
+    TypeID int  NOT NULL,
+    TypeName varchar(30)  NOT NULL,
+    CONSTRAINT types_pk PRIMARY KEY  (TypeID)
+);
+\end{lstlisting}
+
+\subsection{Tabela countries}
+Tabela jest słownikiem państw.
+\begin{itemize}
+\item[] \textbf{CountryID} - Identyfikator państwa
+\item[] \textbf{CountryName} - Nazwa państwa
+\item[] \textbf{isActive} - Informacja czy państwo nadal istnieje
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE TABLE countries (
+    CountryID int  NOT NULL IDENTITY,
+    CountryName varchar(30)  NOT NULL,
+    IsActive bit  NOT NULL,
+    CONSTRAINT countries_pk PRIMARY KEY  (CountryID)
+);
+\end{lstlisting}
