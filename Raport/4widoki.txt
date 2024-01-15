@@ -1,0 +1,51 @@
+\newpage
+
+\section{Widoki}
+
+\subsection{StudentsData}
+
+\begin{lstlisting}[language = SQL]
+CREATE VIEW [dbo].[StudentsData] AS
+SELECT students.StudentID, students.FirstName, students.LastName FROM students
+\end{lstlisting}
+
+\subsection{MostPopularCountriesStudents}
+
+\begin{lstlisting}[language = SQL]
+
+CREATE VIEW [dbo].[MostPopularCountriesStudents] AS 
+SELECT TOP 10 Country, COUNT(*) as "StudentsAmount" FROM students
+GROUP BY Country
+ORDER BY StudentsAmount DESC 
+
+\end{lstlisting}
+
+\subsection{MostPopularEvents}
+
+\begin{lstlisting}[language = SQL]
+
+SELECT TOP 10 E.EventID, E.Title ,COUNT(*) as EventCount FROM events E
+JOIN event_students ES ON ES.EventID = E.EventID
+GROUP BY E.EventID, E.Title
+ORDER BY EventCount DESC
+
+\end{lstlisting}
+
+\subsection{UpcomingEvents}
+
+\begin{lstlisting}[language = SQL]
+CREATE VIEW [dbo].[UpcomingEvents] AS
+SELECT Title, BeginDate, EndDate FROM events
+WHERE BeginDate>GETDATE()
+\end{lstlisting}
+
+\subsection{MostPopularSingleModules}
+
+\begin{lstlisting}[language = SQL]
+CREATE VIEW [dbo].[MostPopularSingleModules] AS
+SELECT TOP 10 SMS.ModuleID, COUNT(*) AS "ModuleCount" FROM single_module_students SMS
+JOIN modules M ON M.ModuleID = SMS.ModuleID
+GROUP BY SMS.ModuleID
+ORDER BY ModuleCount
+\end{lstlisting}
+
