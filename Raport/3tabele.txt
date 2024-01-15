@@ -20,7 +20,7 @@ Przechowuje informacje na temat zatrudnionych pracowników.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE employees (
-    EmployeeID int  NOT NULL,
+    EmployeeID int  NOT NULL IDENTITY,
     FirstName varchar(30)  NOT NULL,
     LastName varchar(30)  NOT NULL,
     Email varchar(30)  NOT NULL,
@@ -52,7 +52,7 @@ Przechowuje informacje o obecnościach studentów w danym module. Dzięki tej ta
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE attendance (
-    AttendanceID int  NOT NULL,
+    AttendanceID int  NOT NULL IDENTITY,
     EventStudentID int  NOT NULL,
     ModuleID int  NOT NULL,
     IsPresent bit  NULL,
@@ -103,7 +103,7 @@ ALTER TABLE event_lecturers ADD CONSTRAINT event_lecturers_lecturers
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE event_students (
-    EventStudentID int  NOT NULL,
+    EventStudentID int  NOT NULL IDENTITY,
     StudentID int  NOT NULL,
     EventID int  NOT NULL,
     IsPaidAdvance bit  NOT NULL,
@@ -134,7 +134,7 @@ Zawiera informacje na temat wydarzeń (studiów, kursów i webinarów).
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE events (
-    EventID int  NOT NULL,
+    EventID int  NOT NULL IDENTITY,
     Title varchar(30)  NOT NULL,
     TypeID int  NOT NULL,
     BeginDate date  NOT NULL,
@@ -163,7 +163,7 @@ Zawiera informacje na temat egzaminów.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE exams (
-    ExamID int  NOT NULL,
+    ExamID int  NOT NULL IDENTITY,
     EventID int  NOT NULL,
     BeginDate datetime  NOT NULL,
     EndDate datetime  NOT NULL,
@@ -185,7 +185,7 @@ Zawiera informacje na temat języków, w którym mogą być prowadzone zajęcia.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE languages (
-    LanguageID int  NOT NULL,
+    LanguageID int  NOT NULL IDENTITY,
     LanguageName varchar(30)  NOT NULL,
     CONSTRAINT languages_pk PRIMARY KEY  (LanguageID)
 );
@@ -210,7 +210,7 @@ Zawiera informacje na temat wykładowców.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE lecturers (
-    LecturerID int  NOT NULL,
+    LecturerID int  NOT NULL IDENTITY,
     FirstName varchar(30)  NOT NULL,
     LastName varchar(30)  NOT NULL,
     Email varchar(30)  NOT NULL,
@@ -254,7 +254,7 @@ Zawiera informacje na temat pojedycznego modułu.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE modules (
-    ModuleID int  NOT NULL,
+    ModuleID int  NOT NULL IDENTITY,
     EventID int  NOT NULL,
     ModuleNo int  NOT NULL,
     LecturerID int  NOT NULL,
@@ -353,7 +353,7 @@ Zawiera informacje na temat dokonanych zamówień.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE orders (
-    OrderID int  NOT NULL,
+    OrderID int  NOT NULL IDENTITY,
     StudentID int  NOT NULL,
     OrderDate datetime  NOT NULL,
     PaymentStatusID int  NOT NULL,
@@ -428,7 +428,7 @@ ALTER TABLE passing_practices ADD CONSTRAINT passing_practices_practices
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE payment_statuses (
-    PaymentStatusID int  NOT NULL,
+    PaymentStatusID int  NOT NULL IDENTITY,
     PaymentStatusName varchar(30)  NOT NULL,
     CONSTRAINT payment_statuses_pk PRIMARY KEY  (PaymentStatusID)
 );
@@ -447,7 +447,7 @@ Tabela zawiera informacje na temat praktyk przeprowadzanych w ramach zaliczenia 
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE practices (
-    PracticeID int  NOT NULL,
+    PracticeID int  NOT NULL IDENTITY,
     EventID int  NOT NULL,
     PracticeNo int  NOT NULL,
     Description varchar(30)  NOT NULL,
@@ -478,7 +478,7 @@ Tabela zawiera informacje na temat sal, w których mogą odbywać się wydarzeni
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE rooms (
-    RoomID int  NOT NULL,
+    RoomID int  NOT NULL IDENTITY,
     Name varchar(30)  NOT NULL,
     Capacity int  NOT NULL,
     Availability bit  NOT NULL,
@@ -498,7 +498,7 @@ Tabela zawiera przypisania studentów do pojedynczych modułów.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE single_module_students (
-    SingleModuleStudentID int  NOT NULL,
+    SingleModuleStudentID int  NOT NULL IDENTITY,
     ModuleID int  NOT NULL,
     StudentID int  NOT NULL,
     IsPaid bit  NOT NULL,
@@ -532,7 +532,7 @@ Tabela zawiera informacje na temat zarejestrowanych studentów.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE students (
-    StudentID int  NOT NULL,
+    StudentID int  NOT NULL IDENTITY,
     FirstName varchar(30)  NOT NULL,
     LastName varchar(30)  NOT NULL,
     Email varchar(30)  NOT NULL,
@@ -584,7 +584,7 @@ Tabela przechowuje informacje na temat zatrudnionych tłumaczy.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE translators (
-    TranslatorID int  NOT NULL,
+    TranslatorID int  NOT NULL IDENTITY,
     FirstName varchar(30)  NOT NULL,
     LastName varchar(30)  NOT NULL,
     Email varchar(30)  NOT NULL,
@@ -600,7 +600,7 @@ Tabela zawiera informacje na temat typów wydarzeń, jakie są w ofercie firmy.
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE TABLE types (
-    TypeID int  NOT NULL,
+    TypeID int  NOT NULL IDENTITY,
     TypeName varchar(30)  NOT NULL,
     CONSTRAINT types_pk PRIMARY KEY  (TypeID)
 );
