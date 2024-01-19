@@ -1,3 +1,5 @@
+\newpage
+\section{Funkcje}
 \subsection{RoomsTaken}
 Funkcja zwraca tabelę z zajętymi pomieszczeniami w zadanym przedziale czasowym. Przyjmuje argumenty:
 \begin{itemize}

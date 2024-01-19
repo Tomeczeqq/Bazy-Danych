@@ -106,17 +106,13 @@ BEGIN
     IF @Capacity < @EventCapacity
         THROW 50000, 'Capacity is less than EventCapacity', 1
     
-    DECLARE @TakenRooms TABLE (RoomNumber INT)
-    INSERT INTO @TakenRooms (RoomNumber)
-    EXEC RoomsTaken @BeginDate, @EndDate
-
     IF EXISTS (
         SELECT 1
-        FROM @TakenRooms as sub
-        WHERE sub.RoomNumber = @RoomID
+        FROM dbo.RoomsTaken(@BeginDate, @EndDate) as sub
+        WHERE sub.RoomID = @RoomID
     )
-        THROW 500001, 'Room is not available then', 1
-
+        THROW 500001, 'Room is not available then', 1    
+    
     INSERT INTO modules (EventID, ModuleNo, LecturerID, LanguageID, TranslatorID, Description, BeginDate, EndDate, Capacity, RoomID, ModulePrice)
     VALUES (@EventID, @ModuleNo, @LecturerID, @LanguageID, @TranslatorID, @Description, @BeginDate, @EndDate, @Capacity, @RoomID, @ModulePrice)
 END
@@ -162,35 +158,6 @@ BEGIN
 END
 \end{lstlisting}
 
-\subsection{RoomsFree}
-Wyświetla listę wolnych sal w zadanym przedziale czasowym.
-
-\begin{lstlisting}[language = SQL]
-CREATE PROCEDURE RoomsFree 
-@BeginDate datetime, 
-@EndDate datetime
-AS
-BEGIN
-    SELECT R.RoomID FROM modules M
-    RIGHT JOIN rooms R ON R.RoomID = M.RoomID
-    WHERE (M.EndDate < @BeginDate OR M.BeginDate > @EndDate) OR M.ModuleID IS NULL   
-END
-\end{lstlisting}
-
-\subsection{RoomsTaken}
-Wyświetla listę zajętych sal w zadanym przedziale czasowym.
-
-\begin{lstlisting}[language = SQL]
-CREATE PROCEDURE RoomsTaken 
-@BeginDate datetime, 
-@EndDate datetime
-AS
-BEGIN
-    SELECT R.RoomID FROM modules M
-    JOIN rooms R ON R.RoomID = M.RoomID
-    WHERE (M.BeginDate BETWEEN @BeginDate AND @EndDate) OR (M.EndDate BETWEEN @BeginDate AND @EndDate)   
-END
-\end{lstlisting}
 
 \subsection{EnrollStudent2Event}
 Zapisuje danego studenta do danego wydarzenia.
