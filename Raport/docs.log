@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.11.27)  19 JAN 2024 14:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.11.27)  19 JAN 2024 14:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -544,7 +544,7 @@ Package hyperref Info: Link coloring ON on input line 80.
 \@outlinefile=\write3
 \openout3 = `docs.out'.
 
-<logo.png, id=172, 2055.68pt x 2055.68pt>
+<logo.png, id=200, 2055.68pt x 2055.68pt>
 File: logo.png Graphic file (type png)
 <use logo.png>
 Package pdftex.def Info: logo.png  used on input line 86.
@@ -580,8 +580,8 @@ been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.113 \newpage
-               [1] (./1funkcje.txt [2]) (./2diagram.txt
-<final_diagram.pdf, id=283, 1580.90625pt x 1118.1775pt>
+               [1] [2] (./1funkcje.txt [3]) (./2diagram.txt
+<final_diagram.pdf, id=330, 1580.90625pt x 1118.1775pt>
 File: final_diagram.pdf Graphic file (type pdf)
 <use final_diagram.pdf>
 Package pdftex.def Info: final_diagram.pdf  used on input line 5.
@@ -591,7 +591,7 @@ Overfull \hbox (69.62862pt too wide) in paragraph at lines 5--6
  [] 
  []
 
-) (./3tabele.txt [3 <./final_diagram.pdf>]
+) (./3tabele.txt [4 <./final_diagram.pdf>]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
@@ -600,55 +600,37 @@ LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-) [4] [5] [6] [7]
-[8] [9] [10] [11] [12] [13] [14]) (./4widoki.txt [15]) (./5procedury.txt
-[16] [17] [18] [19]) [20] (./docs.aux)
-
-Package rerunfilecheck Warning: File `docs.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `docs.out':
-(rerunfilecheck)             Before: 573A2CD8DB1DA3636624B7163F37A23D;5879
-(rerunfilecheck)             After:  8A326985BD6587DE938CED6CDC66EE96;6860.
+) [5] [6] [7] [8]
+[9] [10] [11] [12] [13] [14] [15]) (./4widoki.txt [16]) (./5procedury.txt
+[17] [18] [19] [20]) [21] (./docs.aux)
+Package rerunfilecheck Info: File `docs.out' has not changed.
+(rerunfilecheck)             Checksum: 8A326985BD6587DE938CED6CDC66EE96;6860.
  ) 
 Here is how much of TeX's memory you used:
- 14776 strings out of 477975
- 231493 string characters out of 5839051
+ 14781 strings out of 477975
+ 231566 string characters out of 5839051
  2243330 words of memory out of 5000000
- 34013 multiletter control sequences out of 15000+600000
+ 34020 multiletter control sequences out of 15000+600000
  530633 words of font info for 69 fonts, out of 8000000 for 9000
  56 hyphenation exceptions out of 8191
  75i,12n,77p,306b,2057s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsection.5.8} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.5.7} has been referenced but does not ex
-ist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.5.6} has been referenced but does not ex
-ist, replaced by a fixed one
-
- </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt0900.600pk
-> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600p
-k> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600
-pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.60
-0pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.6
-00pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.
-600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440
-.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc120
-0.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsc20
-74.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc2
-074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecxc
-2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ect
-c2074.600pk>
-Output written on docs.pdf (21 pages, 315550 bytes).
+ </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt0900.600
+pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.60
+0pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.6
+00pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.
+600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095
+.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx109
+5.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx14
+40.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1
+200.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsc
+2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ecc
+c2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
+xc2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+ctc2074.600pk>
+Output written on docs.pdf (22 pages, 316959 bytes).
 PDF statistics:
- 1519 PDF objects out of 1728 (max. 8388607)
- 1098 compressed objects within 11 object streams
- 652 named destinations out of 1000 (max. 500000)
- 347 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1557 PDF objects out of 1728 (max. 8388607)
+ 1133 compressed objects within 12 object streams
+ 650 named destinations out of 1000 (max. 500000)
+ 403 words of extra memory for PDF output out of 10000 (max. 10000000)
 
