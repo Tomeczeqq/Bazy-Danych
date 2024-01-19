@@ -18,6 +18,6 @@ RETURN (
     SELECT R.RoomID
     FROM modules M
     JOIN rooms R ON R.RoomID = M.RoomID
-    WHERE (M.BeginDate BETWEEN @BeginDate AND @EndDate) OR (M.EndDate BETWEEN @BeginDate AND @EndDate)
+    WHERE ((M.BeginDate BETWEEN @BeginDate AND @EndDate) OR (M.EndDate BETWEEN @BeginDate AND @EndDate)) AND R.Name<>'ONLINE'
 );
 \end{lstlisting}
