@@ -1,0 +1,23 @@
+\newpage
+\section{Funkcje}
+\subsection{RoomsTaken}
+Funkcja zwraca tabelę z zajętymi pomieszczeniami w zadanym przedziale czasowym. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION dbo.RoomsTaken
+(
+    @BeginDate datetime,
+    @EndDate datetime
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT R.RoomID
+    FROM modules M
+    JOIN rooms R ON R.RoomID = M.RoomID
+    WHERE (M.BeginDate BETWEEN @BeginDate AND @EndDate) OR (M.EndDate BETWEEN @BeginDate AND @EndDate)
+);
+\end{lstlisting}
