@@ -34,7 +34,8 @@ CREATE TABLE employees (
     Country varchar(30)  NOT NULL,
     Phone varchar(30)  NOT NULL,
     CONSTRAINT employees_pk PRIMARY KEY  (EmployeeID),
-    CHECK (BirthDate > '01-01-1910')
+    CHECK (BirthDate > '01-01-1910'),
+    CHECK (HireDate < getdate())
 );
 
 ALTER TABLE employees ADD CONSTRAINT employees_countries
