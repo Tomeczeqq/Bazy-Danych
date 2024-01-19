@@ -35,7 +35,7 @@ ORDER BY EventCount DESC
 
 \begin{lstlisting}[language = SQL]
 CREATE VIEW [dbo].[UpcomingEvents] AS
-SELECT Title, BeginDate, EndDate FROM events
+SELECT EventID, Title, BeginDate, EndDate FROM events
 WHERE BeginDate>GETDATE()
 \end{lstlisting}
 
