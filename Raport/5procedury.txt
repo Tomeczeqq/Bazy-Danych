@@ -15,12 +15,12 @@ CREATE PROCEDURE RegisterStudent
 @City varchar(30),
 @Region varchar(30),
 @PostalCode varchar(30),
-@Country varchar(30),
+@CountryID varchar(30),
 @Phone varchar(30)
 AS
 BEGIN
-    INSERT INTO students (FirstName, LastName, Email, BirthDate, Address, City, Region, PostalCode, Country, Phone)
-    VALUES (@FirstName, @LastName, @Email, @BirthDate, @Address, @City, @Region, @PostalCode, @Country, @Phone)
+    INSERT INTO students (FirstName, LastName, Email, BirthDate, Address, City, Region, PostalCode, CountryID, Phone)
+    VALUES (@FirstName, @LastName, @Email, @BirthDate, @Address, @City, @Region, @PostalCode, @CountryID, @Phone)
 END
 \end{lstlisting}
 
@@ -38,7 +38,7 @@ CREATE PROCEDURE RegisterLecturer
 @City varchar(30),
 @Region varchar(30),
 @PostalCode varchar(30),
-@Country varchar(30),
+@CountryID varchar(30),
 @Phone varchar(30),
 @LanguageID INT
 AS
@@ -46,8 +46,8 @@ BEGIN
     IF @HireDate IS NULL
     SET @HireDate = GETDATE();
 
-    INSERT INTO lecturers (FirstName, LastName, Email, BirthDate, HireDate, Address, City, Region, PostalCode, Country, Phone, LanguageID)
-    VALUES (@FirstName, @LastName, @Email, @BirthDate, @HireDate, @Address, @City, @Region, @PostalCode, @Country, @Phone, @LanguageID)
+    INSERT INTO lecturers (FirstName, LastName, Email, BirthDate, HireDate, Address, City, Region, PostalCode, CountryID, Phone, LanguageID)
+    VALUES (@FirstName, @LastName, @Email, @BirthDate, @HireDate, @Address, @City, @Region, @PostalCode, @CountryID, @Phone, @LanguageID)
 END
 \end{lstlisting}
 
@@ -96,7 +96,6 @@ BEGIN
    
     IF @Capacity IS NULL
     BEGIN
-
         DECLARE @RoomCapacity INT
         SELECT @RoomCapacity = Capacity FROM rooms WHERE RoomID = @RoomID
         SET @Capacity = @RoomCapacity
@@ -136,8 +135,6 @@ CREATE PROCEDURE AddWebinar
 @Description varchar(30),
 @LecturerID INT,
 @TranslatorID INT = NULL
-
-
 AS
 BEGIN
     DECLARE @TypeID INT;
@@ -153,7 +150,6 @@ BEGIN
     BEGIN
         SET @Capacity = 1000
     END
-
 
     INSERT INTO events (Title, TypeID, BeginDate, EndDate, Capacity, EventPrice, Description)
     VALUES (@Title, @TypeID, CAST(@BeginDate AS DATE), CAST(@EndDate AS DATE), @Capacity, @EventPrice, @Description)
