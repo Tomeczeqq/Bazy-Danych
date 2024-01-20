@@ -33,11 +33,8 @@
 \contentsline {subsection}{\numberline {4.22}Tabela types}{15}{subsection.4.22}%
 \contentsline {subsection}{\numberline {4.23}Tabela countries}{16}{subsection.4.23}%
 \contentsline {section}{\numberline {5}Widoki}{17}{section.5}%
-\contentsline {subsection}{\numberline {5.1}StudentsData}{17}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}MostPopularCountriesStudents}{17}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}MostPopularEvents}{17}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}UpcomingEvents}{17}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}MostPopularSingleModules}{17}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.1}UpcomingEvents}{17}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}ShowBilocations}{17}{subsection.5.2}%
 \contentsline {section}{\numberline {6}Procedury}{18}{section.6}%
 \contentsline {subsection}{\numberline {6.1}RegisterStudent}{18}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}RegisterLecturer}{18}{subsection.6.2}%
@@ -45,5 +42,12 @@
 \contentsline {subsection}{\numberline {6.4}AddModule}{19}{subsection.6.4}%
 \contentsline {subsection}{\numberline {6.5}AddWebinar}{19}{subsection.6.5}%
 \contentsline {subsection}{\numberline {6.6}EnrollStudent2Event}{20}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}ShowMostPopularEvents}{21}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}ShowMostPopularSingleModules}{21}{subsection.6.8}%
 \contentsline {section}{\numberline {7}Funkcje}{22}{section.7}%
 \contentsline {subsection}{\numberline {7.1}RoomsTaken}{22}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Bilocation}{22}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}ShowModuleParticipants}{23}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}ShowEventParticipants}{23}{subsection.7.4}%
+\contentsline {section}{\numberline {8}Triggery}{24}{section.8}%
+\contentsline {subsection}{\numberline {8.1}InsertToModules}{24}{subsection.8.1}%

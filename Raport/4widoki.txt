@@ -2,42 +2,42 @@
 
 \section{Widoki}
 
-\subsection{StudentsData}
-
-\begin{lstlisting}[language = SQL]
-CREATE VIEW [dbo].[StudentsData] AS
-SELECT students.StudentID, students.FirstName, students.LastName FROM students
-\end{lstlisting}
-\subsection{MostPopularCountriesStudents}
-
-\begin{lstlisting}[language = SQL]
-CREATE VIEW [dbo].[MostPopularCountriesStudents] AS 
-SELECT TOP 10 Country, COUNT(*) as "StudentsAmount" FROM students
-GROUP BY Country
-ORDER BY StudentsAmount DESC 
-\end{lstlisting}
-
-\subsection{MostPopularEvents}
-\begin{lstlisting}[language = SQL]
-SELECT TOP 10 E.EventID, E.Title, COUNT(*) as EventCount FROM events E
-JOIN event_students ES ON ES.EventID = E.EventID
-GROUP BY E.EventID, E.Title
-ORDER BY EventCount DESC
-\end{lstlisting}
-
 \subsection{UpcomingEvents}
 \begin{lstlisting}[language = SQL]
-CREATE VIEW [dbo].[UpcomingEvents] AS
-SELECT EventID, Title, BeginDate, EndDate FROM events
+CREATE VIEW UpcomingEvents AS 
+SELECT * FROM events
 WHERE BeginDate>GETDATE()
 \end{lstlisting}
 
-\subsection{MostPopularSingleModules}
+\subsection{ShowBilocations}
+Widok wyświetla informację, którzy studenci mają zajęcia kolidujące ze sobą.
 \begin{lstlisting}[language = SQL]
-CREATE VIEW [dbo].[MostPopularSingleModules] AS
-SELECT TOP 10 SMS.ModuleID, COUNT(*) AS "ModuleCount" FROM single_module_students SMS
-JOIN modules M ON M.ModuleID = SMS.ModuleID
-GROUP BY SMS.ModuleID
-ORDER BY ModuleCount
+CREATE VIEW [dbo].[ShowBilocations] AS 
+    WITH modulesWithDetails AS (
+            SELECT S.StudentID, S.FirstName, S.LastName,  E.Title, E.EventID, M.BeginDate, M.EndDate, M.ModuleID
+            FROM students S
+            JOIN event_students ES ON ES.StudentID = S.StudentID
+            JOIN events E ON E.EventID = ES.EventID
+            JOIN modules M ON M.EventID = E.EventID
+        )
+    SELECT
+        m1.StudentID as StudentID,
+        m1.FirstName as FirstName, 
+        m1.LastName as LastName,
+        m1.Title AS Title1,
+        m1.EventID AS EventID1,
+        m1.ModuleID AS ModuleID1, 
+        m1.BeginDate AS BeginDate1, 
+        m1.EndDate AS EndDate1,
+        m2.Title AS Title2, 
+        m2.EventID AS EventID2,
+        m2.ModuleID AS ModuleID2, 
+        m2.BeginDate AS BeginDate2, 
+        m2.EndDate AS EndDate2
+    FROM modulesWithDetails m1
+    JOIN modulesWithDetails m2 ON m1.ModuleID > m2.ModuleID
+    WHERE m1.BeginDate <= m2.EndDate
+    AND m1.EndDate >= m2.BeginDate
+    AND m1.StudentID = m2.StudentID
 \end{lstlisting}
 

@@ -21,3 +21,84 @@ RETURN (
     WHERE ((M.BeginDate BETWEEN @BeginDate AND @EndDate) OR (M.EndDate BETWEEN @BeginDate AND @EndDate)) AND R.Name<>'ONLINE'
 );
 \end{lstlisting}
+
+\subsection{Bilocation}
+Funkcja zwraca tabelę z zajęciami, które nachodzą na siebie dla podanego studenta. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@StudentID} - ID sprawdzanego studenta
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION Bilocation
+(
+    @StudentID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    WITH modulesWithDetails AS (
+        SELECT E.EventID, M.BeginDate, M.EndDate, M.ModuleID
+        FROM students S
+        JOIN event_students ES ON ES.StudentID = S.StudentID
+        JOIN events E ON E.EventID = ES.EventID
+        JOIN modules M ON M.EventID = E.EventID
+        WHERE S.StudentID = @StudentID
+    )
+    SELECT 
+        m1.EventID AS EventID1,
+        m1.ModuleID AS ModuleID1, 
+        m1.BeginDate AS BeginDate1, 
+        m1.EndDate AS EndDate1, 
+        m2.EventID AS EventID2,
+        m2.ModuleID AS ModuleID2, 
+        m2.BeginDate AS BeginDate2, 
+        m2.EndDate AS EndDate2
+    FROM modulesWithDetails m1
+    JOIN modulesWithDetails m2 ON m1.ModuleID > m2.ModuleID
+    WHERE m1.BeginDate <= m2.EndDate
+    AND m1.EndDate >= m2.BeginDate
+);
+\end{lstlisting}
+
+\subsection{ShowModuleParticipants}
+Funkcja zwraca tabelę z informacją o liście studnetów zapisanych na dany moduł. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@ModuleID} - Identyfikator moudłu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowModuleParticipants]
+(
+    @ModuleID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT S.StudentID, S.FirstName, S.LastName FROM event_students ES
+    JOIN students S ON S.StudentID = ES.StudentID
+    JOIN modules M ON M.EventID = ES.EventID
+    WHERE M.ModuleID = @ModuleID
+    UNION ALL
+    SELECT SMS.StudentID, S.FirstName, S.LastName FROM single_module_students SMS
+    JOIN students S ON S.StudentID = SMS.StudentID
+    WHERE SMS.ModuleID = @ModuleID
+);
+\end{lstlisting}
+
+\subsection{ShowEventParticipants}
+Funkcja zwraca tabelę z informacją o liście studnetów zapisanych na dane wydarzenie. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@EventID} - Identyfikator wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowEventParticipants]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT S.StudentID, S.FirstName, S.LastName
+    FROM students S
+    JOIN event_students ES ON ES.StudentID = S.StudentID
+    WHERE ES.EventID = @EventID
+);
+\end{lstlisting}

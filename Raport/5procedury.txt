@@ -195,3 +195,37 @@ BEGIN
     END
 END
 \end{lstlisting}   
+
+\subsection{ShowMostPopularEvents}
+Pokazuje listę wydarzeń, które rozpoczynają się oraz kończą w zadanym przedziale czasowym. Wydarzenia są posortowane malejąco względem popularności.
+
+\begin{lstlisting}[language = SQL]
+CREATE PROCEDURE [dbo].[ShowMostPopularEvents]
+@BeginDate DATE,
+@EndDate DATE
+AS
+BEGIN
+    SELECT E.EventID, E.Title, COUNT(*) as Count FROM event_students ES
+    JOIN events E ON E.EventID = ES.EventID
+    WHERE E.BeginDate >= @BeginDate AND E.EndDate<=@EndDate
+    GROUP BY E.EventID, E.Title
+    ORDER BY COUNT(*) DESC
+END
+\end{lstlisting}
+
+\subsection{ShowMostPopularSingleModules}
+Pokazuje listę pojedynczych modułów w zadanym przedziale czasowym, na które zapisywali się studenci. Moduły są posortowane malejąco względem popularności.
+
+\begin{lstlisting}[language = SQL]
+CREATE PROCEDURE [dbo].[ShowMostPopularSingleModules]
+@BeginDate DATE,
+@EndDate DATE
+AS
+BEGIN
+    SELECT M.ModuleID, COUNT(*) as Count  FROM single_module_students SMS
+    JOIN modules M ON SMS.ModuleID = M.ModuleID
+    WHERE M.BeginDate >= @BeginDate AND M.EndDate <= @EndDate
+    GROUP BY M.ModuleID
+    ORDER BY Count DESC
+END
+\end{lstlisting}

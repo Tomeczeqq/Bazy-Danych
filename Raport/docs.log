@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.11.27)  19 JAN 2024 16:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.11.27)  20 JAN 2024 20:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -575,7 +575,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.49 ...rline {7.1}RoomsTaken}{22}{subsection.7.1}
+l.49 ... {8.1}InsertToModules}{23}{subsection.8.1}
                                                   % [1])
 \tf@toc=\write4
 \openout4 = `docs.toc'.
@@ -603,15 +603,22 @@ LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line
 File: ts1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 ) [5] [6] [7] [8]
 [9] [10] [11] [12] [13] [14] [15]) (./4widoki.txt [16]) (./5procedury.txt
-[17] [18] [19] [20]) (./6funkcje.txt [21]) [22] (./docs.aux)
-Package rerunfilecheck Info: File `docs.out' has not changed.
-(rerunfilecheck)             Checksum: 496E7487C7D00928A4630FF80FBF0BDC;6836.
+[17] [18] [19] [20]) (./6funkcje.txt [21] [22]) (./7triggery.txt [23]) [24]
+(./docs.aux)
+
+Package rerunfilecheck Warning: File `docs.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `docs.out':
+(rerunfilecheck)             Before: 983353D649DC3AF1F19E6BDCB670D0AA;6657
+(rerunfilecheck)             After:  284B5E986CAC0B2DC53F89936A2DE0B1;7349.
  ) 
 Here is how much of TeX's memory you used:
- 14771 strings out of 477975
- 231383 string characters out of 5839051
+ 14912 strings out of 477975
+ 233485 string characters out of 5839051
  2273330 words of memory out of 5000000
- 34022 multiletter control sequences out of 15000+600000
+ 34044 multiletter control sequences out of 15000+600000
  530633 words of font info for 69 fonts, out of 8000000 for 9000
  56 hyphenation exceptions out of 8191
  75i,12n,77p,306b,2057s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -628,10 +635,10 @@ pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.60
 c2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
 xc2074.600pk> </home/tomek/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/e
 ctc2074.600pk>
-Output written on docs.pdf (23 pages, 317759 bytes).
+Output written on docs.pdf (25 pages, 330704 bytes).
 PDF statistics:
- 1544 PDF objects out of 1728 (max. 8388607)
- 1115 compressed objects within 12 object streams
- 635 named destinations out of 1000 (max. 500000)
+ 1692 PDF objects out of 1728 (max. 8388607)
+ 1260 compressed objects within 13 object streams
+ 751 named destinations out of 1000 (max. 500000)
  403 words of extra memory for PDF output out of 10000 (max. 10000000)
 
