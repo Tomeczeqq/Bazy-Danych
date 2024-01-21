@@ -142,3 +142,59 @@ RETURN (
     ORDER BY Count DESC
 );
 \end{lstlisting}
+
+\subsection{StudentsCountInEvent}
+Zwraca liczbę studentów zapisanych na dane wydarzenie. 
+
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION StudentsCountInEvent(@EventID INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @StudentsNum INT;
+    SELECT @StudentsNum = COUNT(*)
+    FROM event_students
+    WHERE EventID = @EventID;
+    RETURN @StudentsNum;
+END;
+\end{lstlisting}
+
+\subsection{ShowAttendance}
+Zwraca listę studentów danego wydarzenia oraz pokazuje procent ich obecności na zajęciach. 
+
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION ShowAttendance
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT FirstName, LastName, SUM(CASE WHEN IsPresent = 1 THEN 1 ELSE 0 END)*100/COUNT(*) as PositiveAttendancePercentage
+    FROM attendance A 
+    JOIN event_students ES ON ES.EventStudentID = A.EventStudentID
+    JOIN students S ON S.StudentID = ES.StudentID
+    WHERE ES.EventID = @EventID
+    GROUP BY S.FirstName, S.LastName, A.EventStudentID
+)
+\end{lstlisting}
+
+\subsection{ShowIncomeReport}
+Zwraca listę wydarzeń wraz z przychodem jakie generowały w podanym zakresie czasu. 
+
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION ShowIncomeReport
+(
+    @BeginDate DATE,
+    @EndDate DATE
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT E.EventID, E.Title ,SUM(Price) as Income FROM orders O
+    JOIN order_event_details OED ON OED.OrderID=O.OrderID
+    JOIN events E ON OED.EventID = E.EventID
+    WHERE E.BeginDate>=@BeginDate AND E.EndDate<=@EndDate
+    GROUP BY E.EventID, E.Title
+)
+\end{lstlisting}
