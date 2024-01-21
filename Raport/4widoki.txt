@@ -41,3 +41,13 @@ CREATE VIEW [dbo].[ShowBilocations] AS
     AND m1.StudentID = m2.StudentID
 \end{lstlisting}
 
+\subsection{ShowDebtors}
+Widok pokazuje dłużników, czyli osoby, które uczestniczyły w wydarzeniu oraz mają zaległe opłaty do zrealizowania.
+\begin{lstlisting}[language = SQL]
+CREATE VIEW [dbo].[ShowDebtors] AS
+SELECT S.StudentID, S.FirstName, S.LastName, SUM(E.EventPrice) as LeftToPay FROM event_students ES
+JOIN events E ON ES.EventID = E.EventID
+JOIN students S On S.StudentID = ES.StudentID
+WHERE E.EndDate < GETDATE() AND IsPaidFull <> 1
+GROUP BY S.StudentID, S.FirstName, S.LastName
+\end{lstlisting}
