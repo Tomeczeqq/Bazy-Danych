@@ -42,12 +42,13 @@
 \contentsline {subsection}{\numberline {6.4}AddModule}{19}{subsection.6.4}%
 \contentsline {subsection}{\numberline {6.5}AddWebinar}{19}{subsection.6.5}%
 \contentsline {subsection}{\numberline {6.6}EnrollStudent2Event}{20}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7}ShowMostPopularEvents}{21}{subsection.6.7}%
-\contentsline {subsection}{\numberline {6.8}ShowMostPopularSingleModules}{21}{subsection.6.8}%
 \contentsline {section}{\numberline {7}Funkcje}{22}{section.7}%
 \contentsline {subsection}{\numberline {7.1}RoomsTaken}{22}{subsection.7.1}%
 \contentsline {subsection}{\numberline {7.2}Bilocation}{22}{subsection.7.2}%
 \contentsline {subsection}{\numberline {7.3}ShowModuleParticipants}{23}{subsection.7.3}%
 \contentsline {subsection}{\numberline {7.4}ShowEventParticipants}{23}{subsection.7.4}%
-\contentsline {section}{\numberline {8}Triggery}{24}{section.8}%
-\contentsline {subsection}{\numberline {8.1}InsertToModules}{24}{subsection.8.1}%
+\contentsline {subsection}{\numberline {7.5}ShowMostPopularEvents}{23}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}ShowMostPopularSingleModules}{24}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Triggery}{25}{section.8}%
+\contentsline {subsection}{\numberline {8.1}InsertToModules}{25}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}TriggerAddStudentAfterCompletedPayment}{25}{subsection.8.2}%

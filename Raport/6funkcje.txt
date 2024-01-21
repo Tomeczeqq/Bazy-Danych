@@ -102,3 +102,43 @@ RETURN (
     WHERE ES.EventID = @EventID
 );
 \end{lstlisting}
+
+\subsection{ShowMostPopularEvents}
+Pokazuje listę 10 najpopularniejszych wydarzeń, które rozpoczynają się oraz kończą w zadanym przedziale czasowym.
+
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowMostPopularEvents]
+(
+    @BeginDate DATE,
+    @EndDate DATE
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT TOP 10 E.EventID, E.Title, COUNT(*) as Count FROM event_students ES
+    JOIN events E ON E.EventID = ES.EventID
+    WHERE E.BeginDate >= @BeginDate AND E.EndDate<=@EndDate
+    GROUP BY E.EventID, E.Title
+    ORDER BY COUNT(*) DESC
+);
+\end{lstlisting}
+
+\subsection{ShowMostPopularSingleModules}
+Pokazuje listę 10 najpopularniejszych pojedynczych modułów w zadanym przedziale czasowym, na które zapisywali się studenci. 
+
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowMostPopularSingleModules]
+(
+    @BeginDate DATE,
+    @EndDate DATE
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT TOP 10 M.ModuleID, COUNT(*) as Count  FROM single_module_students SMS
+    JOIN modules M ON SMS.ModuleID = M.ModuleID
+    WHERE M.BeginDate >= @BeginDate AND M.EndDate <= @EndDate
+    GROUP BY M.ModuleID
+    ORDER BY Count DESC
+);
+\end{lstlisting}

@@ -21,3 +21,30 @@ BEGIN
     FROM INSERTED I
 END;
 \end{lstlisting}
+
+
+\subsection{TriggerAddStudentAfterCompletedPayment}
+Trigger w momencie zmiany statusu płatności na zakończoną automatycznie zapisuje studenta na zakupione wydarzenie.
+
+\begin{lstlisting}[language = SQL]
+CREATE TRIGGER TriggerAddStudentAfterCompletedPayment
+ON orders
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF UPDATE(PaymentStatusID)
+    BEGIN
+        DECLARE @NewStudentID INT, @ToEventID INT;
+        SELECT @NewStudentID = O.StudentID, @ToEventID = OES.EventID
+        FROM
+            inserted O
+            JOIN order_event_details OES ON OES.OrderID = O.OrderID
+        WHERE O.PaymentStatusID = 3
+        IF @NewStudentID IS NOT NULL
+        BEGIN
+            EXEC EnrollStudent2Event @StudentID = @NewStudentID, @EventID = @ToEventID
+        END
+    END
+END;
+\end{lstlisting}
