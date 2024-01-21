@@ -49,6 +49,9 @@
 \contentsline {subsection}{\numberline {7.4}ShowEventParticipants}{23}{subsection.7.4}%
 \contentsline {subsection}{\numberline {7.5}ShowMostPopularEvents}{23}{subsection.7.5}%
 \contentsline {subsection}{\numberline {7.6}ShowMostPopularSingleModules}{24}{subsection.7.6}%
-\contentsline {section}{\numberline {8}Triggery}{25}{section.8}%
-\contentsline {subsection}{\numberline {8.1}InsertToModules}{25}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}TriggerAddStudentAfterCompletedPayment}{25}{subsection.8.2}%
+\contentsline {subsection}{\numberline {7.7}StudentsCountInEvent}{24}{subsection.7.7}%
+\contentsline {subsection}{\numberline {7.8}ShowAttendance}{24}{subsection.7.8}%
+\contentsline {subsection}{\numberline {7.9}ShowIncomeReport}{24}{subsection.7.9}%
+\contentsline {section}{\numberline {8}Triggery}{26}{section.8}%
+\contentsline {subsection}{\numberline {8.1}InsertToModules}{26}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}TriggerAddStudentAfterCompletedPayment}{26}{subsection.8.2}%
