@@ -60,9 +60,9 @@ RETURN (
 \end{lstlisting}
 
 \subsection{ShowModuleParticipants}
-Funkcja zwraca tabelę z informacją o liście studnetów zapisanych na dany moduł. Przyjmuje argumenty:
+Funkcja zwraca tabelę z informacją o liście studentów zapisanych na dany moduł. Przyjmuje argumenty:
 \begin{itemize}
-\item[] \textbf{@ModuleID} - Identyfikator moudłu
+\item[] \textbf{@ModuleID} - Identyfikator modułu
 \end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE FUNCTION [dbo].[ShowModuleParticipants]
