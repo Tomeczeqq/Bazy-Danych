@@ -3,6 +3,7 @@
 \section{Widoki}
 
 \subsection{UpcomingEvents}
+Wyświetla listę zaplanowanych wydarzeń.
 \begin{lstlisting}[language = SQL]
 CREATE VIEW UpcomingEvents AS 
 SELECT * FROM events

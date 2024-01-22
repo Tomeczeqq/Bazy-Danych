@@ -161,7 +161,7 @@ END
 
 \subsection{EnrollStudent2Event}
 Zapisuje danego studenta do danego wydarzenia.
-
+\newline \footsizenote{Wiemy, że da się tą funkcję zapisać ładniej i lepiej, ale zdecydowaliśmy się na pozostawienie takiej implementacji}
 \begin{lstlisting}[language = SQL]
 CREATE PROCEDURE EnrollStudent2Event
 @StudentID int, 

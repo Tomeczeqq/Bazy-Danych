@@ -11,20 +11,22 @@ GRANT ALL PRIVILEGES ON u_smyda.dbo to admin
 
 \subsection{Dyrektor}
 Ma uprawnienia do:
-\\-zobaczenia nadchodzących wydarzeń
-\\-zobaczenia studentów mających kolidujące ze sobą zajęcia
-\\-zobaczenia dłużników (osób mających zaległe opłaty do zrealizowania)
-\\-dodania nowych studiów lub kursu
-\\-zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
-\\-zobaczenia tabeli z nachodzącymi na siebie wydarzeniami dla podanego studenta
-\\-zobaczenia tabeli z listą studentów zapisanych na dany moduł
-\\-zobaczenia tabeli z listą studentów zapisanych na dane wydarzenie
-\\-zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
-\\-zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
-\\-liczby studentów zapisanych na dane wydarzenie
-\\-zobaczenia listy studentów danego wydarzenia wraz z procentem ich obecności na zajęciach
-\\-zobaczenia listy wydarzeń wraz z generowanymi przez nie przychodami
-\\-zobaczenia listy studentów biorących udział w wydarzeniach w podanym przedziale czasowym
+\begin{itemize}
+\item zobaczenia nadchodzących wydarzeń
+\item zobaczenia studentów mających kolidujące ze sobą zajęcia
+\item zobaczenia dłużników (osób mających zaległe opłaty do zrealizowania)
+\item dodania nowych studiów lub kursu
+\item zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
+\item zobaczenia tabeli z nachodzącymi na siebie wydarzeniami dla podanego studenta
+\item zobaczenia tabeli z listą studentów zapisanych na dany moduł
+\item zobaczenia tabeli z listą studentów zapisanych na dane wydarzenie
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\item zobaczenia listy studentów danego wydarzenia wraz z procentem ich obecności na zajęciach
+\item zobaczenia listy wydarzeń wraz z generowanymi przez nie przychodami
+\item zobaczenia listy studentów biorących udział w wydarzeniach w podanym przedziale czasowym
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE ROLE director
 
@@ -46,15 +48,17 @@ GRANT SELECT ON ShowMostActiveStudents to director
 
 \subsection{Menadżer}
 Ma uprawnienia do:
-\\-zobaczenia nadchodzących wydarzeń
-\\-rejestrowania nowego studenta do bazy danych
-\\-rejestrowania nowego wykładowcy do bazy danych
-\\-dodania nowych studiów lub kursu
-\\-dodania nowego webinara
-\\-zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
-\\-zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
-\\-zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
-\\-liczby studentów zapisanych na dane wydarzenie
+\begin{itemize}
+\item zobaczenia nadchodzących wydarzeń
+\item rejestrowania nowego studenta do bazy danych
+\item rejestrowania nowego wykładowcy do bazy danych
+\item dodania nowych studiów lub kursu
+\item dodania nowego webinara
+\item zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE ROLE manager
 
@@ -71,14 +75,16 @@ GRANT EXECUTE ON StudentCountInEvent to manager
 
 \subsection{Nauczyciel}
 Ma uprawnienia do:
-\\-dodania nowego modułu dla kursu lub dla studiów
-\\-zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
-\\-zobaczenia tabeli z listą studentów zapisanych na dany moduł
-\\-zobaczenia tabeli z listą studentów zapisanych na dane wydarzenie
-\\-zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
-\\-zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
-\\-liczby studentów zapisanych na dane wydarzenie
-\\-zobaczenia listy studentów danego wydarzenia wraz z procentem ich obecności na zajęciach
+\begin{itemize}
+\item dodania nowego modułu dla kursu lub dla studiów
+\item zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
+\item zobaczenia tabeli z listą studentów zapisanych na dany moduł
+\item zobaczenia tabeli z listą studentów zapisanych na dane wydarzenie
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\item zobaczenia listy studentów danego wydarzenia wraz z procentem ich obecności na zajęciach
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE ROLE teacher
 
@@ -94,11 +100,13 @@ GRANT SELECT ON ShowAttendance to teacher
 
 \subsection{Klient}
 Ma uprawnienia do:
-\\-zapisania się na dane wydarzenie
-\\-zobaczenia tabeli z kolidującymi ze sobą zajęciami
-\\-zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
-\\-zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
-\\-liczby studentów zapisanych na dane wydarzenie
+\begin{itemize}
+\item zapisania się na dane wydarzenie
+\item zobaczenia tabeli z kolidującymi ze sobą zajęciami
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE ROLE client
 
@@ -110,7 +118,10 @@ GRANT EXECUTE ON StudentCountInEvent to client
 \end{lstlisting}
 
 \subsection{Niezarejestrowany użytkownik}
-Ma uprawnienie do założenia konta
+Ma uprawnienie do:
+\begin{itemize}
+\item założenia konta
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE ROLE unregistered_user
 \end{lstlisting}

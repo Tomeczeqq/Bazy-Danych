@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.9)  21 JAN 2024 20:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.9)  22 JAN 2024 09:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -553,7 +553,7 @@ Package hyperref Info: Link coloring ON on input line 80.
 \@outlinefile=\write3
 \openout3 = `docs.out'.
 
-<logo.png, id=231, 2055.68pt x 2055.68pt>
+<logo.png, id=375, 2055.68pt x 2055.68pt>
 File: logo.png Graphic file (type png)
 <use logo.png>
 Package pdftex.def Info: logo.png  used on input line 86.
@@ -586,14 +586,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.49 ...ShowEventParticipants}{23}{subsection.7.4}
+l.49 ...howModuleParticipants}{22}{subsection.7.3}
                                                   % [1])
 \tf@toc=\write4
 \openout4 = `docs.toc'.
 
  [2] (1funkcje.txt
 [3]) (2diagram.txt
-<final_diagram.pdf, id=375, 1580.90625pt x 1118.1775pt>
+<final_diagram.pdf, id=591, 1580.90625pt x 1118.1775pt>
 File: final_diagram.pdf Graphic file (type pdf)
 <use final_diagram.pdf>
 Package pdftex.def Info: final_diagram.pdf  used on input line 5.
@@ -614,46 +614,68 @@ LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15]) (4widoki.txt [16])
-(5procedury.txt [17] [18] [19] [20]) (6funkcje.txt [21] [22] [23] [24])
-(7triggery.txt [25]) [26] (docs.aux)
+(5procedury.txt [17] [18] [19]
+! Undefined control sequence.
+l.164 \newline \footsizenote
+                            {Wiemy, że da się tą funkcję zapisać ładni...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[20]) (6funkcje.txt [21] [22] [23] [24] [25]) (7triggery.txt [26])
+(8indeksy.txt [27] [28] [29] [30]) (9uprawnienia.txt [31] [32] [33])
+
+! LaTeX Error: \begin{itemize} on input line 172 ended by \end{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.124 \end{document}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[34] (docs.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
+Package rerunfilecheck Info: File `docs.out' has not changed.
+(rerunfilecheck)             Checksum: 53F1F835970100364E982FAC5EE759C2;13356.
+ )
+(\end occurred inside a group at level 1)
 
-
-Package rerunfilecheck Warning: File `docs.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `docs.out':
-(rerunfilecheck)             Before: D953393D55AF6601DC3416057ACD09D9;8021
-(rerunfilecheck)             After:  4F16B16F6EAB78719176713AAEB4713D;8303.
- ) 
+### semi simple group (level 1) entered at line 172 (\begingroup)
+### bottom level 
 Here is how much of TeX's memory you used:
- 15222 strings out of 475248
- 237310 string characters out of 5757813
- 2341785 words of memory out of 5000000
- 35646 multiletter control sequences out of 15000+600000
+ 15545 strings out of 475248
+ 242502 string characters out of 5757813
+ 2329785 words of memory out of 5000000
+ 35737 multiletter control sequences out of 15000+600000
  576415 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,435b,2055s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt
-0900.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ectt0900.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\tcrm1095.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ecbx1200.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour
-/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\tomas\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\tomas\AppData\Loca
-l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsc2074.pk> <C:\Users\tomas\AppDat
-a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc2074.pk> <C:\Users\tomas\
-AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecxc2074.pk> <C:\Users\
-tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectc2074.pk>
-Output written on docs.pdf (27 pages, 494699 bytes).
+ 75i,12n,79p,435b,2174s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/
+ec/dpi600\tctt0900.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jkn
+appen/ec/dpi600\ectt0900.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfo
+ur/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/p
+k/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\tomas\AppData\Local\MiKTeX\f
+onts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\tomas\AppData\Local\Mi
+KTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\tomas\AppData\Lo
+cal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\tomas\AppD
+ata\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\toma
+s\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsc2074.pk> <C:\User
+s\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc2074.pk> <C
+:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecxc2074.
+pk> <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ect
+c2074.pk>
+Output written on docs.pdf (35 pages, 579594 bytes).
 PDF statistics:
- 1847 PDF objects out of 2073 (max. 8388607)
- 849 named destinations out of 1000 (max. 500000)
- 467 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2335 PDF objects out of 2487 (max. 8388607)
+ 1075 named destinations out of 1200 (max. 500000)
+ 755 words of extra memory for PDF output out of 10000 (max. 10000000)
 

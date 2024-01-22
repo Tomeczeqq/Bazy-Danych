@@ -105,7 +105,10 @@ RETURN (
 
 \subsection{ShowMostPopularEvents}
 Pokazuje listę 10 najpopularniejszych wydarzeń, które rozpoczynają się oraz kończą w zadanym przedziale czasowym.
-
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE FUNCTION [dbo].[ShowMostPopularEvents]
 (
@@ -125,7 +128,10 @@ RETURN (
 
 \subsection{ShowMostPopularSingleModules}
 Pokazuje listę 10 najpopularniejszych pojedynczych modułów w zadanym przedziale czasowym, na które zapisywali się studenci. 
-
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE FUNCTION [dbo].[ShowMostPopularSingleModules]
 (
@@ -145,7 +151,9 @@ RETURN (
 
 \subsection{StudentsCountInEvent}
 Zwraca liczbę studentów zapisanych na dane wydarzenie. 
-
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks sprawdzanego wydarzenia
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE FUNCTION StudentsCountInEvent(@EventID INT)
 RETURNS INT
@@ -161,7 +169,8 @@ END;
 
 \subsection{ShowAttendance}
 Zwraca listę studentów danego wydarzenia oraz pokazuje procent ich obecności na zajęciach. 
-
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks sprawdzanego wydarzenia
 \begin{lstlisting}[language = SQL]
 CREATE FUNCTION ShowAttendance
 (
@@ -181,7 +190,10 @@ RETURN (
 
 \subsection{ShowIncomeReport}
 Zwraca listę wydarzeń wraz z przychodem jakie generowały w podanym zakresie czasu. 
-
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE FUNCTION ShowIncomeReport
 (
@@ -201,7 +213,10 @@ RETURN (
 
 \subsection{ShowMostActiveStudents}
 Zwraca listę studentów, którzy biorą udział w jakiś wydarzeniach w zadanym przedziale czasowym oraz liczbę tych wydarzeń dla studenta. 
-
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
 \begin{lstlisting}[language = SQL]
 CREATE FUNCTION [dbo].[ShowMostActiveStudents]
 (
@@ -216,5 +231,71 @@ RETURN (
     JOIN events E ON E.EventID = ES.EventID
     WHERE E.BeginDate>=@BeginDate AND E.EndDate<=@EndDate
     GROUP BY S.StudentID, S.FirstName, S.LastName
+)
+\end{lstlisting}
+
+\subsection{GetPassedExamsStudents}
+Zwraca indeksy studentów, którzy zaliczyli wszystkie egzaminy z danego wydarzenia.
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+Create FUNCTION [dbo].[GetPassedExamsStudents]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT ES.StudentID FROM passing_exams PE
+    JOIN event_students ES ON ES.EventStudentID = PE.EventStudentID
+    JOIN exams E ON E.ExamID = PE.ExamID
+    WHERE E.EventID = @EventID
+    GROUP BY ES.StudentID
+    HAVING SUM(IsPassed)/COUNT(*) = 1
+)
+\end{lstlisting}
+
+\subsection{GetPassedPracticesStudents}
+Zwraca indeksy studentów, którzy zaliczyli wszystkie praktyki z danego wydarzenia.
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+Create FUNCTION [dbo].[GetPassedPracticesStudents]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT ES.StudentID FROM passing_practices PP
+    JOIN event_students ES ON PP.EventStudentID = ES.EventStudentID
+    WHERE ES.EventID = @EventID
+    GROUP BY ES.StudentID
+    HAVING SUM(CASE WHEN IsPassed = 1 THEN 1 ELSE 0 END) = COUNT(*)
+)
+\end{lstlisting}
+
+
+\subsection{GetGraduatedStudentsAddresses}
+Zwraca adresy uczniów, którzy spełnili wymagania zaliczenia studiów.
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+Create FUNCTION [dbo].[GetGraduatedStudentsAddresses]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT S.FirstName, S.LastName, S.Address, S.City, S.Region, S.PostalCode, C.CountryName FROM ShowAttendance(@EventID) SA
+    JOIN students S ON S.StudentID = SA.StudentID
+    JOIN countries C ON C.CountryID = S.CountryID
+    JOIN GetPassedExamsStudents(@EventID) GPES ON GPES.StudentID = S.StudentID
+    JOIN GetPassedPracticesStudents(@EventID) GPPS ON GPPS.StudentID = S.StudentID
+    WHERE PositiveAttendancePercentage>=80
 )
 \end{lstlisting}
