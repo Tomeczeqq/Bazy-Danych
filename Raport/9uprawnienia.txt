@@ -1,0 +1,127 @@
+\newpage
+
+\section{Uprawnienia}
+
+\subsection{Administrator}
+Ma uprawnienia do wszystkiego w bazie danych
+\begin{lstlisting}[language = SQL]
+CREATE ROLE admin
+GRANT ALL PRIVILEGES ON u_smyda.dbo to admin
+\end{lstlisting}
+
+\subsection{Dyrektor}
+Ma uprawnienia do:
+\begin{itemize}
+\item zobaczenia nadchodzących wydarzeń
+\item zobaczenia studentów mających kolidujące ze sobą zajęcia
+\item zobaczenia dłużników (osób mających zaległe opłaty do zrealizowania)
+\item dodania nowych studiów lub kursu
+\item zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
+\item zobaczenia tabeli z nachodzącymi na siebie wydarzeniami dla podanego studenta
+\item zobaczenia tabeli z listą studentów zapisanych na dany moduł
+\item zobaczenia tabeli z listą studentów zapisanych na dane wydarzenie
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\item zobaczenia listy studentów danego wydarzenia wraz z procentem ich obecności na zajęciach
+\item zobaczenia listy wydarzeń wraz z generowanymi przez nie przychodami
+\item zobaczenia listy studentów biorących udział w wydarzeniach w podanym przedziale czasowym
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE ROLE director
+
+GRANT SELECT ON UpcomingEvents to director
+GRANT SELECT ON ShowBilocations to director
+GRANT SELECT ON ShowDebtors to director
+GRANT EXECUTE ON AddEvent to director
+GRANT SELECT ON RoomsTaken to director
+GRANT SELECT ON Bilocation to director
+GRANT SELECT ON ShowModuleParticipants to director
+GRANT SELECT ON ShowEventParticipants to director
+GRANT SELECT ON ShowMostPopularEvents to director
+GRANT SELECT ON ShowMostPopularSingleModules to director
+GRANT EXECUTE ON StudentCountInEvent to director
+GRANT SELECT ON ShowAttendance to director
+GRANT SELECT ON ShowIncomeReport to director
+GRANT SELECT ON ShowMostActiveStudents to director
+\end{lstlisting}
+
+\subsection{Menadżer}
+Ma uprawnienia do:
+\begin{itemize}
+\item zobaczenia nadchodzących wydarzeń
+\item rejestrowania nowego studenta do bazy danych
+\item rejestrowania nowego wykładowcy do bazy danych
+\item dodania nowych studiów lub kursu
+\item dodania nowego webinara
+\item zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE ROLE manager
+
+GRANT SELECT ON UpcomingEvents to manager
+GRANT EXECUTE ON RegisterStudent to manager
+GRANT EXECUTE ON RegisterLecturer to manager
+GRANT EXECUTE ON AddEvent to manager
+GRANT EXECUTE ON AddWebinar to manager
+GRANT SELECT ON RoomsTaken to manager
+GRANT SELECT ON ShowMostPopularEvents to manager
+GRANT SELECT ON ShowMostPopularSingleModules to manager
+GRANT EXECUTE ON StudentCountInEvent to manager
+\end{lstlisting}
+
+\subsection{Nauczyciel}
+Ma uprawnienia do:
+\begin{itemize}
+\item dodania nowego modułu dla kursu lub dla studiów
+\item zobaczenia tabeli zajętych pomieszczeń w podanym przedziale czasowym
+\item zobaczenia tabeli z listą studentów zapisanych na dany moduł
+\item zobaczenia tabeli z listą studentów zapisanych na dane wydarzenie
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\item zobaczenia listy studentów danego wydarzenia wraz z procentem ich obecności na zajęciach
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE ROLE teacher
+
+GRANT EXECUTE ON AddModule to teacher
+GRANT SELECT ON RoomsTaken to teacher
+GRANT SELECT ON ShowModuleParticipants to teacher
+GRANT SELECT ON ShowEventParticipants to teacher
+GRANT SELECT ON ShowMostPopularEvents to teacher
+GRANT SELECT ON ShowMostPopularSingleModules to teacher
+GRANT EXECUTE ON StudentCountInEvent to teacher
+GRANT SELECT ON ShowAttendance to teacher
+\end{lstlisting}
+
+\subsection{Klient}
+Ma uprawnienia do:
+\begin{itemize}
+\item zapisania się na dane wydarzenie
+\item zobaczenia tabeli z kolidującymi ze sobą zajęciami
+\item zobaczenia listy 10 najpopularniejszych wydarzeń w podanym przedziale czasowym
+\item zobaczenia listy 10 najpopularniejszych modułów w podanym przedziale czasowym
+\item liczby studentów zapisanych na dane wydarzenie
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE ROLE client
+
+GRANT EXECUTE ON EnrollStudent2Event to client
+GRANT SELECT ON Bilocation to client
+GRANT SELECT ON ShowMostPopularEvents to client
+GRANT SELECT ON ShowMostPopularSingleModules to client
+GRANT EXECUTE ON StudentCountInEvent to client
+\end{lstlisting}
+
+\subsection{Niezarejestrowany użytkownik}
+Ma uprawnienie do:
+\begin{itemize}
+\item założenia konta
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE ROLE unregistered_user
+\end{lstlisting}

@@ -1,0 +1,301 @@
+\newpage
+\section{Funkcje}
+\subsection{RoomsTaken}
+Funkcja zwraca tabelę z zajętymi pomieszczeniami w zadanym przedziale czasowym. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION dbo.RoomsTaken
+(
+    @BeginDate datetime,
+    @EndDate datetime
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT R.RoomID
+    FROM modules M
+    JOIN rooms R ON R.RoomID = M.RoomID
+    WHERE ((M.BeginDate BETWEEN @BeginDate AND @EndDate) OR (M.EndDate BETWEEN @BeginDate AND @EndDate)) AND R.Name<>'ONLINE'
+);
+\end{lstlisting}
+
+\subsection{Bilocation}
+Funkcja zwraca tabelę z zajęciami, które nachodzą na siebie dla podanego studenta. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@StudentID} - ID sprawdzanego studenta
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION Bilocation
+(
+    @StudentID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    WITH modulesWithDetails AS (
+        SELECT E.EventID, M.BeginDate, M.EndDate, M.ModuleID
+        FROM students S
+        JOIN event_students ES ON ES.StudentID = S.StudentID
+        JOIN events E ON E.EventID = ES.EventID
+        JOIN modules M ON M.EventID = E.EventID
+        WHERE S.StudentID = @StudentID
+    )
+    SELECT 
+        m1.EventID AS EventID1,
+        m1.ModuleID AS ModuleID1, 
+        m1.BeginDate AS BeginDate1, 
+        m1.EndDate AS EndDate1, 
+        m2.EventID AS EventID2,
+        m2.ModuleID AS ModuleID2, 
+        m2.BeginDate AS BeginDate2, 
+        m2.EndDate AS EndDate2
+    FROM modulesWithDetails m1
+    JOIN modulesWithDetails m2 ON m1.ModuleID > m2.ModuleID
+    WHERE m1.BeginDate <= m2.EndDate
+    AND m1.EndDate >= m2.BeginDate
+);
+\end{lstlisting}
+
+\subsection{ShowModuleParticipants}
+Funkcja zwraca tabelę z informacją o liście studentów zapisanych na dany moduł. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@ModuleID} - Identyfikator modułu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowModuleParticipants]
+(
+    @ModuleID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT S.StudentID, S.FirstName, S.LastName FROM event_students ES
+    JOIN students S ON S.StudentID = ES.StudentID
+    JOIN modules M ON M.EventID = ES.EventID
+    WHERE M.ModuleID = @ModuleID
+    UNION ALL
+    SELECT SMS.StudentID, S.FirstName, S.LastName FROM single_module_students SMS
+    JOIN students S ON S.StudentID = SMS.StudentID
+    WHERE SMS.ModuleID = @ModuleID
+);
+\end{lstlisting}
+
+\subsection{ShowEventParticipants}
+Funkcja zwraca tabelę z informacją o liście studnetów zapisanych na dane wydarzenie. Przyjmuje argumenty:
+\begin{itemize}
+\item[] \textbf{@EventID} - Identyfikator wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowEventParticipants]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT S.StudentID, S.FirstName, S.LastName
+    FROM students S
+    JOIN event_students ES ON ES.StudentID = S.StudentID
+    WHERE ES.EventID = @EventID
+);
+\end{lstlisting}
+
+\subsection{ShowMostPopularEvents}
+Pokazuje listę 10 najpopularniejszych wydarzeń, które rozpoczynają się oraz kończą w zadanym przedziale czasowym.
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowMostPopularEvents]
+(
+    @BeginDate DATE,
+    @EndDate DATE
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT TOP 10 E.EventID, E.Title, COUNT(*) as Count FROM event_students ES
+    JOIN events E ON E.EventID = ES.EventID
+    WHERE E.BeginDate >= @BeginDate AND E.EndDate<=@EndDate
+    GROUP BY E.EventID, E.Title
+    ORDER BY COUNT(*) DESC
+);
+\end{lstlisting}
+
+\subsection{ShowMostPopularSingleModules}
+Pokazuje listę 10 najpopularniejszych pojedynczych modułów w zadanym przedziale czasowym, na które zapisywali się studenci. 
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowMostPopularSingleModules]
+(
+    @BeginDate DATE,
+    @EndDate DATE
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT TOP 10 M.ModuleID, COUNT(*) as Count  FROM single_module_students SMS
+    JOIN modules M ON SMS.ModuleID = M.ModuleID
+    WHERE M.BeginDate >= @BeginDate AND M.EndDate <= @EndDate
+    GROUP BY M.ModuleID
+    ORDER BY Count DESC
+);
+\end{lstlisting}
+
+\subsection{StudentsCountInEvent}
+Zwraca liczbę studentów zapisanych na dane wydarzenie. 
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks sprawdzanego wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION StudentsCountInEvent(@EventID INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @StudentsNum INT;
+    SELECT @StudentsNum = COUNT(*)
+    FROM event_students
+    WHERE EventID = @EventID;
+    RETURN @StudentsNum;
+END;
+\end{lstlisting}
+
+\subsection{ShowAttendance}
+Zwraca listę studentów danego wydarzenia oraz pokazuje procent ich obecności na zajęciach. 
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks sprawdzanego wydarzenia
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION ShowAttendance
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT FirstName, LastName, SUM(CASE WHEN IsPresent = 1 THEN 1 ELSE 0 END)*100/COUNT(*) as PositiveAttendancePercentage
+    FROM attendance A 
+    JOIN event_students ES ON ES.EventStudentID = A.EventStudentID
+    JOIN students S ON S.StudentID = ES.StudentID
+    WHERE ES.EventID = @EventID
+    GROUP BY S.FirstName, S.LastName, A.EventStudentID
+)
+\end{lstlisting}
+
+\subsection{ShowIncomeReport}
+Zwraca listę wydarzeń wraz z przychodem jakie generowały w podanym zakresie czasu. 
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION ShowIncomeReport
+(
+    @BeginDate DATE,
+    @EndDate DATE
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT E.EventID, E.Title ,SUM(Price) as Income FROM orders O
+    JOIN order_event_details OED ON OED.OrderID=O.OrderID
+    JOIN events E ON OED.EventID = E.EventID
+    WHERE E.BeginDate>=@BeginDate AND E.EndDate<=@EndDate
+    GROUP BY E.EventID, E.Title
+)
+\end{lstlisting}
+
+\subsection{ShowMostActiveStudents}
+Zwraca listę studentów, którzy biorą udział w jakiś wydarzeniach w zadanym przedziale czasowym oraz liczbę tych wydarzeń dla studenta. 
+\begin{itemize}
+\item[] \textbf{@BeginDate} - Data początkowa sprawdzanego zakresu
+\item[] \textbf{@EndDate} - Data końcowa sprawdzanego zakresu
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+CREATE FUNCTION [dbo].[ShowMostActiveStudents]
+(
+    @BeginDate DATE,
+    @EndDate DATE
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT S.StudentID, S.FirstName, S.LastName, Count(*) as Count FROM students S
+    JOIN event_students ES ON S.StudentID = ES.StudentID
+    JOIN events E ON E.EventID = ES.EventID
+    WHERE E.BeginDate>=@BeginDate AND E.EndDate<=@EndDate
+    GROUP BY S.StudentID, S.FirstName, S.LastName
+)
+\end{lstlisting}
+
+\subsection{GetPassedExamsStudents}
+Zwraca indeksy studentów, którzy zaliczyli wszystkie egzaminy z danego wydarzenia.
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+Create FUNCTION [dbo].[GetPassedExamsStudents]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT ES.StudentID FROM passing_exams PE
+    JOIN event_students ES ON ES.EventStudentID = PE.EventStudentID
+    JOIN exams E ON E.ExamID = PE.ExamID
+    WHERE E.EventID = @EventID
+    GROUP BY ES.StudentID
+    HAVING SUM(IsPassed)/COUNT(*) = 1
+)
+\end{lstlisting}
+
+\subsection{GetPassedPracticesStudents}
+Zwraca indeksy studentów, którzy zaliczyli wszystkie praktyki z danego wydarzenia.
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+Create FUNCTION [dbo].[GetPassedPracticesStudents]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT ES.StudentID FROM passing_practices PP
+    JOIN event_students ES ON PP.EventStudentID = ES.EventStudentID
+    WHERE ES.EventID = @EventID
+    GROUP BY ES.StudentID
+    HAVING SUM(CASE WHEN IsPassed = 1 THEN 1 ELSE 0 END) = COUNT(*)
+)
+\end{lstlisting}
+
+
+\subsection{GetGraduatedStudentsAddresses}
+Zwraca adresy uczniów, którzy spełnili wymagania zaliczenia studiów.
+\begin{itemize}
+\item[] \textbf{@EventID} - Indeks wydarzenia
+\end{itemize}
+\begin{lstlisting}[language = SQL]
+Create FUNCTION [dbo].[GetGraduatedStudentsAddresses]
+(
+    @EventID int
+)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT S.FirstName, S.LastName, S.Address, S.City, S.Region, S.PostalCode, C.CountryName FROM ShowAttendance(@EventID) SA
+    JOIN students S ON S.StudentID = SA.StudentID
+    JOIN countries C ON C.CountryID = S.CountryID
+    JOIN GetPassedExamsStudents(@EventID) GPES ON GPES.StudentID = S.StudentID
+    JOIN GetPassedPracticesStudents(@EventID) GPPS ON GPPS.StudentID = S.StudentID
+    WHERE PositiveAttendancePercentage>=80
+)
+\end{lstlisting}

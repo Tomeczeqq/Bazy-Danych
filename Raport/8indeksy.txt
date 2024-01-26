@@ -1,0 +1,194 @@
+\newpage
+
+\section{Indeksy}
+
+\subsection{Tabela employees}
+Po ID pracownika
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Employees_PKK
+ON employees (EmployeeID)
+\end{lstlisting}
+
+\subsection{Tabela attendance}
+Po ID obecności na module
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Attendance_PKK
+ON attendance (AttendanceID)
+\end{lstlisting}
+
+\subsection{Tabela event_lecturers}
+Po ID wydarzenia
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Event_lecturers_EventID
+ON event_lecturers (EventID)
+\end{lstlisting}
+Po ID wykładowcy
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Event_lecturers_LecturerID
+ON event_lecturers (LecturerID)
+\end{lstlisting}
+
+\subsection{Tabela event_students}
+Po ID przypisania studenta do wydarzenia
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Event_students_PKK
+ON event_students (EventStudentID)
+\end{lstlisting}
+
+\subsection{Tabela events}
+Po ID wydarzenia
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Events_PKK
+ON events (EventID)
+\end{lstlisting}
+
+\subsection{Tabela exams}
+Po ID egzaminu
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Exams_PKK
+ON exams (ExamID)
+\end{lstlisting}
+
+\subsection{Tabela languages}
+Po ID języka
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Languages_PKK
+ON languages (LanguageID)
+\end{lstlisting}
+
+\subsection{Tabela lecturers}
+Po ID wykładowcy
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Lecturers_PKK
+ON lecturers (LecturerID)
+\end{lstlisting}
+
+\subsection{Tabela modules}
+Po ID modułu
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Modules_PKK
+ON modules (ModuleID)
+\end{lstlisting}
+
+\subsection{Tabela order_event_details}
+Po ID zamówienia
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Order_event_details_OrderID
+ON order_event_details (OrderID)
+\end{lstlisting}
+Po ID wydarzenia
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Order_event_details_EventID
+ON order_event_details (EventID)
+\end{lstlisting}
+
+\subsection{Tabela order_module_details}
+Po ID zamówienia
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Order_module_details_OrderID
+ON order_module_details (OrderID)
+\end{lstlisting}
+Po ID modułu
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Order_module_details_ModuleID
+ON order_module_details (ModuleID)
+\end{lstlisting}
+
+\subsection{Tabela orders}
+Po ID zamówienia
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Orders_PKK
+ON orders (OrderID)
+\end{lstlisting}
+
+\subsection{Tabela passing_exams}
+Po ID egzaminu
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Passing_exams_ExamID
+ON passing_exams (ExamID)
+\end{lstlisting}
+Po ID przypisania studenta do danego wydarzenia
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Passing_exams_EventStudentID
+ON passing_exams (EventStudentID)
+\end{lstlisting}
+
+\subsection{Tabela passing_practices}
+Po ID praktyk
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Passing_practices_PracticeID
+ON passing_practices (PracticeID)
+\end{lstlisting}
+Po ID przypisania studenta do danego wydarzenia
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Passing_practices_EventStudentID
+ON passing_practices (EventStudentID)
+\end{lstlisting}
+
+\subsection{Tabela payment_statuses}
+Po ID statusu płatności
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Payment_statuses_PKK
+ON payment_statuses (PaymentStatusID)
+\end{lstlisting}
+
+\subsection{Tabela practices}
+Po ID praktyk
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Practices_PKK
+ON practices (PracticeID)
+\end{lstlisting}
+
+\subsection{Tabela rooms}
+Po ID sali
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Rooms_PKK
+ON rooms (RoomID)
+\end{lstlisting}
+
+\subsection{Tabela single_module_students}
+Po ID przypisania studenta do pojedynczego modułu
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Single_module_students_PKK
+ON single_module_students (SingleModuleStudentID)
+\end{lstlisting}
+
+\subsection{Tabela students}
+Po ID studenta
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Students_PKK
+ON students (StudentID)
+\end{lstlisting}
+
+\subsection{Tabela translator_languages}
+Po ID tłumacza
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Translator_languages_TranslatorID
+ON translator_languages (TranslatorID)
+\end{lstlisting}
+Po ID języka
+\begin{lstlisting}[language = SQL]
+CREATE NONCLUSTERED INDEX Translator_languages_LanguageID
+ON translator_languages (LanguageID)
+\end{lstlisting}
+
+\subsection{Tabela translators}
+Po ID tłumacza
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Translators_PKK
+ON translators (TranslatorID)
+\end{lstlisting}
+
+\subsection{Tabela types}
+Po ID typu
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Types_PKK
+ON types (TypeID)
+\end{lstlisting}
+
+\subsection{Tabela countries}
+Po ID państwa
+\begin{lstlisting}[language = SQL]
+CREATE UNIQUE INDEX Countries_PKK
+ON countries (CountryID)
+\end{lstlisting}

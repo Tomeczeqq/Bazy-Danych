@@ -1,0 +1,54 @@
+\newpage
+
+\section{Widoki}
+
+\subsection{UpcomingEvents}
+Wyświetla listę zaplanowanych wydarzeń.
+\begin{lstlisting}[language = SQL]
+CREATE VIEW UpcomingEvents AS 
+SELECT * FROM events
+WHERE BeginDate>GETDATE()
+\end{lstlisting}
+
+\subsection{ShowBilocations}
+Widok wyświetla informację, którzy studenci mają zajęcia kolidujące ze sobą.
+\begin{lstlisting}[language = SQL]
+CREATE VIEW [dbo].[ShowBilocations] AS 
+    WITH modulesWithDetails AS (
+            SELECT S.StudentID, S.FirstName, S.LastName,  E.Title, E.EventID, M.BeginDate, M.EndDate, M.ModuleID
+            FROM students S
+            JOIN event_students ES ON ES.StudentID = S.StudentID
+            JOIN events E ON E.EventID = ES.EventID
+            JOIN modules M ON M.EventID = E.EventID
+        )
+    SELECT
+        m1.StudentID as StudentID,
+        m1.FirstName as FirstName, 
+        m1.LastName as LastName,
+        m1.Title AS Title1,
+        m1.EventID AS EventID1,
+        m1.ModuleID AS ModuleID1, 
+        m1.BeginDate AS BeginDate1, 
+        m1.EndDate AS EndDate1,
+        m2.Title AS Title2, 
+        m2.EventID AS EventID2,
+        m2.ModuleID AS ModuleID2, 
+        m2.BeginDate AS BeginDate2, 
+        m2.EndDate AS EndDate2
+    FROM modulesWithDetails m1
+    JOIN modulesWithDetails m2 ON m1.ModuleID > m2.ModuleID
+    WHERE m1.BeginDate <= m2.EndDate
+    AND m1.EndDate >= m2.BeginDate
+    AND m1.StudentID = m2.StudentID
+\end{lstlisting}
+
+\subsection{ShowDebtors}
+Widok pokazuje dłużników, czyli osoby, które uczestniczyły w wydarzeniu oraz mają zaległe opłaty do zrealizowania.
+\begin{lstlisting}[language = SQL]
+CREATE VIEW [dbo].[ShowDebtors] AS
+SELECT S.StudentID, S.FirstName, S.LastName, SUM(E.EventPrice) as LeftToPay FROM event_students ES
+JOIN events E ON ES.EventID = E.EventID
+JOIN students S On S.StudentID = ES.StudentID
+WHERE E.EndDate < GETDATE() AND IsPaidFull <> 1
+GROUP BY S.StudentID, S.FirstName, S.LastName
+\end{lstlisting}

@@ -1,0 +1,50 @@
+\newpage
+\section{Triggery}
+\subsection{InsertToModules}
+Trigger w momencie dodawania modułu, dodaje wykładowce z eventem do tabeli event_lecturers, tak aby wszystko było spójne ze sobą.
+
+\begin{lstlisting}[language = SQL]
+CREATE TRIGGER InsertToModules
+ON modules
+INSTEAD OF INSERT
+AS
+BEGIN
+
+    INSERT INTO event_lecturers (EventID, LecturerID, Description)
+    SELECT I.EventID, I.LecturerID, I.Description
+    FROM INSERTED I
+    LEFT JOIN event_lecturers EL ON I.EventID = EL.EventID AND I.LecturerID = EL.LecturerID
+    WHERE EL.EventID IS NULL AND EL.LecturerID IS NULL;
+
+    INSERT INTO modules (EventID, ModuleNo, LecturerID, LanguageID, TranslatorID, Description, BeginDate, EndDate, Capacity, RoomID, ModulePrice)
+    SELECT I.EventID, I.ModuleNo, I.LecturerID, I.LanguageID, I.TranslatorID, I.Description, I.BeginDate, I.EndDate, I.Capacity, I.RoomID, I.ModulePrice
+    FROM INSERTED I
+END;
+\end{lstlisting}
+
+
+\subsection{TriggerAddStudentAfterCompletedPayment}
+Trigger w momencie zmiany statusu płatności na zakończoną automatycznie zapisuje studenta na zakupione wydarzenie.
+
+\begin{lstlisting}[language = SQL]
+CREATE TRIGGER TriggerAddStudentAfterCompletedPayment
+ON orders
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF UPDATE(PaymentStatusID)
+    BEGIN
+        DECLARE @NewStudentID INT, @ToEventID INT;
+        SELECT @NewStudentID = O.StudentID, @ToEventID = OES.EventID
+        FROM
+            inserted O
+            JOIN order_event_details OES ON OES.OrderID = O.OrderID
+        WHERE O.PaymentStatusID = 3
+        IF @NewStudentID IS NOT NULL
+        BEGIN
+            EXEC EnrollStudent2Event @StudentID = @NewStudentID, @EventID = @ToEventID
+        END
+    END
+END;
+\end{lstlisting}
